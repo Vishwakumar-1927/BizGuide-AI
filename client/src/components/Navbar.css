@@ -1,0 +1,161 @@
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,Helvetica,sans-serif;
+}
+
+.navbar{
+
+position:sticky;
+top:0;
+
+background:white;
+
+border-bottom:1px solid #e5e7eb;
+
+z-index:1000;
+
+}
+
+.navbar-container{
+
+max-width:1300px;
+
+margin:auto;
+
+padding:18px 25px;
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+}
+
+.logo{
+
+font-size:30px;
+
+font-weight:bold;
+
+color:#2563eb;
+
+cursor:pointer;
+
+}
+
+.nav-links{
+
+display:flex;
+
+gap:35px;
+
+}
+
+.nav-links a{
+
+text-decoration:none;
+
+font-size:17px;
+
+color:#374151;
+
+font-weight:600;
+
+transition:.3s;
+
+}
+
+.nav-links a:hover{
+
+color:#2563eb;
+
+}
+
+.nav-links .active{
+
+color:#2563eb;
+
+}
+
+.nav-buttons{
+
+display:flex;
+
+gap:15px;
+
+}
+
+.login-btn{
+
+padding:10px 20px;
+
+border:2px solid #2563eb;
+
+background:white;
+
+color:#2563eb;
+
+border-radius:10px;
+
+cursor:pointer;
+
+font-weight:600;
+
+}
+
+.start-btn{
+
+padding:10px 22px;
+
+background:#2563eb;
+
+color:white;
+
+border:none;
+
+border-radius:10px;
+
+cursor:pointer;
+
+font-weight:600;
+
+}
+
+.start-btn:hover{
+
+background:#1d4ed8;
+
+}
+
+@media(max-width:900px){
+
+.navbar-container{
+
+flex-direction:column;
+
+gap:20px;
+
+}
+
+.nav-links{
+
+flex-wrap:wrap;
+
+justify-content:center;
+
+}
+
+}
+
+.user-name{
+  color:#2563eb;
+  font-size:16px;
+  font-weight:600;
+  margin-right:15px;
+  display:flex;
+  align-items:center;
+  white-space:nowrap;
+}

@@ -1,0 +1,368 @@
+.verdict-section {
+    width: 95%;
+    max-width: 1250px;
+    margin: 50px auto;
+}
+
+/* ========================= */
+/* HERO CARD */
+/* ========================= */
+
+.verdict-hero {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 50px;
+
+    padding: 40px;
+
+    border-radius: 24px;
+
+    color: white;
+
+    box-shadow: 0 15px 40px rgba(0,0,0,.15);
+
+    margin-bottom: 35px;
+}
+
+/* Gradient Colors */
+
+.go {
+    background: linear-gradient(135deg,#16A34A,#22C55E);
+}
+
+.caution {
+    background: linear-gradient(135deg,#D97706,#F59E0B);
+}
+
+.reject {
+    background: linear-gradient(135deg,#DC2626,#EF4444);
+}
+
+/* ========================= */
+/* SCORE */
+/* ========================= */
+
+.score-wrapper{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+}
+
+.score-circle{
+    width:170px;
+    height:170px;
+}
+
+.score-wrapper h3{
+    margin-top:20px;
+    font-size:24px;
+    font-weight:700;
+}
+
+/* ========================= */
+/* DECISION */
+/* ========================= */
+
+.verdict-info{
+    flex:1;
+}
+
+.decision{
+
+    display:flex;
+    align-items:center;
+    gap:15px;
+
+    margin-bottom:20px;
+
+}
+
+.decision svg{
+
+    font-size:42px;
+
+}
+
+.decision h2{
+
+    font-size:40px;
+
+    font-weight:800;
+
+    letter-spacing:1px;
+
+}
+
+.verdict-info p{
+
+    font-size:18px;
+
+    line-height:1.8;
+
+    max-width:650px;
+
+}
+
+/* ========================= */
+/* SCORE BREAKDOWN */
+/* ========================= */
+
+.breakdown-card{
+
+    background:#fff;
+
+    border-radius:20px;
+
+    padding:30px;
+
+    margin-bottom:35px;
+
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+
+}
+
+.breakdown-card h2{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    color:#1E3A8A;
+
+    margin-bottom:25px;
+
+    font-size:28px;
+
+}
+
+.progress-item{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    margin-bottom:12px;
+
+    font-weight:600;
+
+    color:#374151;
+
+}
+
+.progress-bar{
+
+    width:100%;
+
+    height:14px;
+
+    background:#E5E7EB;
+
+    border-radius:30px;
+
+    overflow:hidden;
+
+}
+
+.progress-fill{
+
+    height:100%;
+
+    background:linear-gradient(
+        90deg,
+        #2563EB,
+        #4F46E5
+    );
+
+    border-radius:30px;
+
+    transition:width .8s ease;
+
+}
+
+/* ========================= */
+/* AI SUMMARY */
+/* ========================= */
+
+.ai-summary{
+
+    background:#fff;
+
+    padding:35px;
+
+    border-radius:20px;
+
+    border-left:6px solid #2563EB;
+
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+
+}
+
+.summary-title{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
+
+    margin-bottom:20px;
+
+}
+
+.summary-title svg{
+
+    width:55px;
+
+    height:55px;
+
+    padding:14px;
+
+    border-radius:50%;
+
+    background:#DBEAFE;
+
+    color:#2563EB;
+
+    font-size:24px;
+
+}
+
+.summary-title h2{
+
+    color:#1E3A8A;
+
+    font-size:28px;
+
+    font-weight:700;
+
+}
+
+.ai-summary p{
+
+    color:#4B5563;
+
+    line-height:1.9;
+
+    font-size:16px;
+
+    margin-bottom:25px;
+
+}
+
+.ai-summary blockquote{
+
+    background:#F8FAFC;
+
+    border-left:5px solid #2563EB;
+
+    padding:22px;
+
+    border-radius:12px;
+
+    font-size:18px;
+
+    font-style:italic;
+
+    color:#1F2937;
+
+    line-height:1.8;
+
+    margin:0;
+
+}
+
+/* ========================= */
+/* RESPONSIVE */
+/* ========================= */
+
+@media(max-width:992px){
+
+.verdict-hero{
+
+flex-direction:column;
+
+text-align:center;
+
+}
+
+.decision{
+
+justify-content:center;
+
+}
+
+.verdict-info p{
+
+max-width:100%;
+
+}
+
+}
+
+@media(max-width:600px){
+
+.verdict-section{
+
+width:100%;
+
+padding:0 15px;
+
+}
+
+.verdict-hero{
+
+padding:25px;
+
+}
+
+.score-circle{
+
+width:130px;
+
+height:130px;
+
+}
+
+.score-wrapper h3{
+
+font-size:20px;
+
+}
+
+.decision h2{
+
+font-size:28px;
+
+}
+
+.decision svg{
+
+font-size:32px;
+
+}
+
+.breakdown-card,
+.ai-summary{
+
+padding:22px;
+
+}
+
+.breakdown-card h2,
+.summary-title h2{
+
+font-size:22px;
+
+}
+
+.ai-summary p,
+.ai-summary blockquote{
+
+font-size:14px;
+
+}
+
+}

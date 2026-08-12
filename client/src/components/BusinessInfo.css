@@ -1,0 +1,51 @@
+.business-card{
+    background:#fff;
+    padding:30px;
+    border-radius:18px;
+    box-shadow:0 8px 25px rgba(0,0,0,.08);
+    margin-bottom:35px;
+}
+
+.business-card h2{
+    color:#1E3A8A;
+    margin-bottom:20px;
+}
+
+.info-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:20px;
+}
+
+.info-box{
+    background:#F8FAFC;
+    padding:18px;
+    border-radius:12px;
+}
+
+.info-box label{
+    display:block;
+    font-size:14px;
+    color:#6B7280;
+    margin-bottom:8px;
+}
+
+.info-box span{
+    font-weight:600;
+    color:#111827;
+}
+
+.description-box{
+    margin-top:25px;
+}
+
+.description-box label{
+    display:block;
+    margin-bottom:10px;
+    font-weight:bold;
+}
+
+.description-box p{
+    line-height:1.8;
+    color:#374151;
+}

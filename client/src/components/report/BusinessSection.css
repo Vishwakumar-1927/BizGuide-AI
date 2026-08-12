@@ -1,0 +1,184 @@
+.business-section {
+    width: 95%;
+    max-width: 1250px;
+    margin: 40px auto;
+}
+
+/* Header */
+
+.section-header {
+    margin-bottom: 30px;
+}
+
+.section-header h2 {
+    font-size: 30px;
+    color: #1E3A8A;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.section-header p {
+    color: #64748B;
+    font-size: 16px;
+}
+
+/* Grid */
+
+.business-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+    margin-bottom: 30px;
+}
+
+/* Cards */
+
+.info-card {
+    background: #ffffff;
+    border-radius: 18px;
+    padding: 22px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    box-shadow: 0 10px 25px rgba(0,0,0,.08);
+    transition: .3s;
+}
+
+.info-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 35px rgba(37,99,235,.15);
+}
+
+/* Icons */
+
+.info-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    flex-shrink: 0;
+}
+
+.blue {
+    background: #DBEAFE;
+    color: #2563EB;
+}
+
+.green {
+    background: #DCFCE7;
+    color: #16A34A;
+}
+
+.orange {
+    background: #FEF3C7;
+    color: #D97706;
+}
+
+.purple {
+    background: #EDE9FE;
+    color: #7C3AED;
+}
+
+/* Content */
+
+.info-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.info-content span {
+    font-size: 13px;
+    color: #64748B;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.info-content h3 {
+    font-size: 20px;
+    color: #111827;
+    font-weight: 700;
+    word-break: break-word;
+}
+
+/* Description */
+
+.description-card {
+    background: #ffffff;
+    border-radius: 18px;
+    padding: 28px;
+    box-shadow: 0 10px 25px rgba(0,0,0,.08);
+}
+
+.description-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 18px;
+}
+
+.description-header svg {
+    color: #2563EB;
+    font-size: 24px;
+}
+
+.description-header h3 {
+    color: #1E3A8A;
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.description-card p {
+    color: #475569;
+    font-size: 16px;
+    line-height: 1.8;
+    text-align: justify;
+}
+
+/* Responsive */
+
+@media (max-width: 900px) {
+
+    .business-grid {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+@media (max-width: 600px) {
+
+    .business-section {
+        width: 100%;
+        padding: 15px;
+    }
+
+    .section-header h2 {
+        font-size: 24px;
+    }
+
+    .info-card {
+        padding: 18px;
+    }
+
+    .info-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 20px;
+    }
+
+    .info-content h3 {
+        font-size: 18px;
+    }
+
+    .description-header h3 {
+        font-size: 20px;
+    }
+
+    .description-card p {
+        font-size: 15px;
+    }
+
+}

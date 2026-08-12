@@ -1,0 +1,115 @@
+.report-header{
+    background:#fff;
+    border-radius:18px;
+    padding:35px;
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+    margin-bottom:35px;
+}
+
+.header-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.back-btn,
+.download-btn{
+
+    border:none;
+    cursor:pointer;
+    padding:12px 22px;
+    border-radius:10px;
+    font-size:15px;
+    font-weight:600;
+    transition:.3s;
+}
+
+.back-btn{
+
+    background:#EEF4FF;
+    color:#2563EB;
+}
+
+.download-btn{
+
+    background:#2563EB;
+    color:white;
+}
+
+.back-btn:hover{
+
+    transform:translateY(-2px);
+}
+
+.download-btn:hover{
+
+    transform:translateY(-2px);
+    background:#1E40AF;
+}
+
+.report-title{
+
+    text-align:center;
+    margin:35px 0;
+}
+
+.report-title h1{
+
+    color:#2563EB;
+    font-size:40px;
+    margin-bottom:10px;
+}
+
+.report-title h2{
+
+    font-size:48px;
+    letter-spacing:2px;
+    margin-bottom:12px;
+    color:#1E293B;
+}
+
+.report-title p{
+
+    color:#64748B;
+    font-size:18px;
+}
+
+.summary-grid{
+
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:18px;
+    margin-top:40px;
+}
+
+.summary-item{
+
+    display:flex;
+    flex-direction:column;
+    background:#F8FAFC;
+    padding:20px;
+    border-radius:12px;
+    border-left:5px solid #2563EB;
+}
+
+.summary-item span{
+
+    color:#64748B;
+    margin-bottom:8px;
+}
+
+.summary-item strong{
+
+    font-size:18px;
+    color:#1E293B;
+}
+
+.prepared-by{
+
+    margin-top:30px;
+    background:#F1F5F9;
+    text-align:center;
+    padding:16px;
+    border-radius:10px;
+    color:#475569;
+}

@@ -1,0 +1,175 @@
+.recommend-section {
+    width: 95%;
+    max-width: 1250px;
+    margin: 40px auto;
+}
+
+/* ========================= */
+/* HEADER */
+/* ========================= */
+
+.recommend-header {
+    margin-bottom: 30px;
+}
+
+.recommend-header h2 {
+    font-size: 30px;
+    font-weight: 700;
+    color: #1E3A8A;
+    margin-bottom: 8px;
+}
+
+.recommend-header p {
+    font-size: 15px;
+    color: #64748B;
+    max-width: 720px;
+    line-height: 1.6;
+}
+
+/* ========================= */
+/* GRID */
+/* ========================= */
+
+.recommend-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+/* ========================= */
+/* CARD */
+/* ========================= */
+
+.recommend-card {
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 30px;
+    border: 1px solid #E5E7EB;
+    box-shadow: 0 10px 25px rgba(0,0,0,.08);
+    transition: all .3s ease;
+}
+
+.recommend-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 18px 35px rgba(37,99,235,.15);
+}
+
+/* ========================= */
+/* TITLE */
+/* ========================= */
+
+.recommend-title {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.recommend-title svg {
+    width: 55px;
+    height: 55px;
+    padding: 14px;
+    border-radius: 50%;
+    font-size: 22px;
+}
+
+.recommend-title h3 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #1F2937;
+}
+
+/* ========================= */
+/* LIST */
+/* ========================= */
+
+.recommend-card ul {
+    padding-left: 20px;
+    margin: 0;
+}
+
+.recommend-card li {
+    color: #4B5563;
+    line-height: 1.8;
+    font-size: 15px;
+    margin-bottom: 12px;
+}
+
+.recommend-card li:last-child {
+    margin-bottom: 0;
+}
+
+/* ========================= */
+/* COLORS */
+/* ========================= */
+
+.marketing {
+    border-top: 5px solid #2563EB;
+}
+
+.marketing svg {
+    background: #DBEAFE;
+    color: #2563EB;
+}
+
+.operations {
+    border-top: 5px solid #16A34A;
+}
+
+.operations svg {
+    background: #DCFCE7;
+    color: #16A34A;
+}
+
+.financial {
+    border-top: 5px solid #D97706;
+}
+
+.financial svg {
+    background: #FEF3C7;
+    color: #D97706;
+}
+
+/* ========================= */
+/* RESPONSIVE */
+/* ========================= */
+
+@media (max-width: 992px) {
+
+    .recommend-grid {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+@media (max-width: 600px) {
+
+    .recommend-section {
+        width: 100%;
+        padding: 0 15px;
+    }
+
+    .recommend-header h2 {
+        font-size: 24px;
+    }
+
+    .recommend-card {
+        padding: 22px;
+    }
+
+    .recommend-title h3 {
+        font-size: 20px;
+    }
+
+    .recommend-title svg {
+        width: 48px;
+        height: 48px;
+        padding: 12px;
+        font-size: 20px;
+    }
+
+    .recommend-card li {
+        font-size: 14px;
+    }
+
+}

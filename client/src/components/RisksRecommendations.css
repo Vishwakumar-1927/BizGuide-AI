@@ -1,0 +1,66 @@
+.recommendations{
+    background:#fff;
+    max-width:850px;
+    margin:30px auto;
+    padding:60px;
+    border-radius:8px;
+    box-shadow:0 5px 20px rgba(0,0,0,.08);
+}
+
+.section-header{
+    border-bottom:3px solid #2563EB;
+    margin-bottom:35px;
+}
+
+.section-header h2{
+    color:#1E3A8A;
+    font-size:32px;
+    padding-bottom:12px;
+}
+
+.recommendation-card{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:20px;
+}
+
+.recommendation-item{
+    background:#F8FAFC;
+    border:1px solid #E5E7EB;
+    border-radius:10px;
+    padding:25px;
+}
+
+.recommendation-item h3{
+    color:#2563EB;
+    margin-bottom:12px;
+}
+
+.recommendation-item p{
+    color:#374151;
+    line-height:1.8;
+}
+
+.recommendation-note{
+    margin-top:35px;
+    background:#ECFDF5;
+    border-left:6px solid #10B981;
+    padding:25px;
+    border-radius:8px;
+}
+
+.recommendation-note h3{
+    color:#065F46;
+    margin-bottom:12px;
+}
+
+.recommendation-note p{
+    color:#374151;
+    line-height:1.8;
+}
+
+@media(max-width:768px){
+    .recommendation-card{
+        grid-template-columns:1fr;
+    }
+}

@@ -1,0 +1,18 @@
+.investment-card{
+    background:#fff;
+    padding:30px;
+    margin-bottom:30px;
+    border-radius:18px;
+    box-shadow:0 8px 25px rgba(0,0,0,.08);
+}
+
+.investment-card h2{
+    color:#1E3A8A;
+    margin-bottom:18px;
+}
+
+.investment-card p{
+    color:#374151;
+    line-height:1.9;
+    text-align:justify;
+}
