@@ -46,7 +46,7 @@ function ReportManagement() {
             }
 
             const response = await fetch(
-                "http://localhost:5000/api/admin/reports",
+                "https://bizguide-ai-backend.onrender.com/api/admin/reports",
                 {
                     method: "GET",
 
@@ -113,7 +113,7 @@ function ReportManagement() {
                 localStorage.getItem("token");
 
             const response = await fetch(
-                `http://localhost:5000/api/admin/reports/${reportId}`,
+                `https://bizguide-ai-backend.onrender.com/api/admin/reports/${reportId}`,
                 {
                     method: "GET",
 
@@ -198,7 +198,7 @@ function ReportManagement() {
                 localStorage.getItem("token");
 
             const response = await fetch(
-                `http://localhost:5000/api/admin/reports/${reportId}`,
+                `https://bizguide-ai-backend.onrender.com/api/admin/reports/${reportId}`,
                 {
                     method: "DELETE",
 

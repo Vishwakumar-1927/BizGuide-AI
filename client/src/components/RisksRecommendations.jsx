@@ -1,38 +1,54 @@
-import "./RisksRecommendations.css";
+import "./Recommendations.css";
 
-function RisksRecommendations({ report }) {
-
+function Recommendations({ report }) {
   if (!report) return null;
 
   return (
-    <div className="rr-grid">
+    <section className="recommendations">
 
-      <div className="rr-card">
+      <div className="section-header">
+        <h2>7. Recommendations</h2>
+      </div>
 
-        <h2>⚠ Risks</h2>
+      <div className="recommendation-card">
 
-        <ul>
-          {report.risks?.map((risk,index)=>(
-            <li key={index}>{risk}</li>
-          ))}
-        </ul>
+        <div className="recommendation-item">
+          <h3>📍 Recommended Location</h3>
+          <p>{report.bestLocation || "Choose a location with high customer traffic."}</p>
+        </div>
+
+        <div className="recommendation-item">
+          <h3>📢 Marketing Strategy</h3>
+          <p>{report.marketingStrategy || "Use social media marketing and local promotions to attract customers."}</p>
+        </div>
+
+        <div className="recommendation-item">
+          <h3>💰 Budget Suggestion</h3>
+          <p>{report.budgetAdvice || "Allocate your budget wisely across infrastructure, inventory, and marketing."}</p>
+        </div>
+
+        <div className="recommendation-item">
+          <h3>🚀 Growth Strategy</h3>
+          <p>{report.growthStrategy || "Focus on customer satisfaction and gradually expand your services."}</p>
+        </div>
 
       </div>
 
-      <div className="rr-card">
+      <div className="recommendation-note">
 
-        <h2>🚀 Recommendations</h2>
+        <h3>AI Recommendation</h3>
 
-        <ul>
-          {report.recommendations?.map((item,index)=>(
-            <li key={index}>{item}</li>
-          ))}
-        </ul>
+        <p>
+          These recommendations are generated based on your business
+          category, investment budget, location, and market analysis.
+          They are intended to help improve your chances of business
+          success.
+        </p>
 
       </div>
 
-    </div>
+    </section>
   );
 }
 
-export default RisksRecommendations;
+export default Recommendations;

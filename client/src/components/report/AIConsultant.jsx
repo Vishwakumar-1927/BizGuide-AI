@@ -16,7 +16,7 @@ function AIConsultant({ business }) {
     setMessages((prev) => [...prev, userMessage]);
 
     try {
-      const response = await fetch("http://localhost:5000/chat", {
+      const response = await fetch("https://bizguide-ai-backend.onrender.com/chat", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

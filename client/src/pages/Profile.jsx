@@ -44,7 +44,7 @@ function Profile() {
       }
 
       const response = await fetch(
-        "http://localhost:5000/api/auth/profile",
+        "https://bizguide-ai-backend.onrender.com/api/auth/profile",
         {
           method: "GET",
           headers: {
@@ -109,7 +109,7 @@ function Profile() {
       const token = localStorage.getItem("token");
 
       const response = await fetch(
-        "http://localhost:5000/api/auth/profile",
+        "https://bizguide-ai-backend.onrender.com/api/auth/profile",
         {
           method: "PUT",
           headers: {
@@ -209,7 +209,7 @@ function Profile() {
       }
 
       const response = await fetch(
-        "http://localhost:5000/api/auth/change-password",
+        "https://bizguide-ai-backend.onrender.com/api/auth/change-password",
         {
           method: "PUT",
 

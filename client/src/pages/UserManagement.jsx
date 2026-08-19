@@ -42,7 +42,7 @@ function UserManagement() {
       }
 
       const response = await fetch(
-        "http://localhost:5000/api/admin/users",
+        "https://bizguide-ai-backend.onrender.com/api/admin/users",
         {
           method: "GET",
 
@@ -130,7 +130,7 @@ function UserManagement() {
         localStorage.getItem("token");
 
       const response = await fetch(
-        `http://localhost:5000/api/admin/users/${userId}/role`,
+        `https://bizguide-ai-backend.onrender.com/api/admin/users/${userId}/role`,
         {
           method: "PUT",
 
@@ -272,7 +272,7 @@ function UserManagement() {
         localStorage.getItem("token");
 
       const response = await fetch(
-        `http://localhost:5000/api/admin/users/${userId}`,
+        `https://bizguide-ai-backend.onrender.com/api/admin/users/${userId}`,
         {
           method: "DELETE",
 

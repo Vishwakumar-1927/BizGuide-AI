@@ -41,7 +41,7 @@ function History() {
         return;
       }
 
-      const response = await fetch("http://localhost:5000/reports", {
+      const response = await fetch("https://bizguide-ai-backend.onrender.com/reports", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -89,7 +89,7 @@ function History() {
       const token = localStorage.getItem("token");
 
       const response = await fetch(
-        `http://localhost:5000/reports/${id}`,
+        `https://bizguide-ai-backend.onrender.com/reports/${id}`,
         {
           method: "DELETE",
           headers: {
