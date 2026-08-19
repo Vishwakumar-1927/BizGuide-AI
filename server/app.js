@@ -19,7 +19,10 @@ app.use(express.json());
 
 // Routes
 const businessRoutes = require("./routes/businessRoutes");
+const authRoutes = require("./routes/authRoutes");
+
 app.use("/", businessRoutes);
+app.use("/api/auth", authRoutes);
 
 // Default Route
 app.get("/", (req, res) => {
