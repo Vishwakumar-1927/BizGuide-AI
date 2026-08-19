@@ -1,8 +1,6 @@
 const express = require("express");
 const cors = require("cors");
 const dotenv = require("dotenv");
-const authRoutes = require("./routes/authRoutes");
-const adminRoutes = require("./routes/adminRoutes");
 
 // Load environment variables
 dotenv.config();
@@ -22,8 +20,6 @@ app.use(express.json());
 // Routes
 const businessRoutes = require("./routes/businessRoutes");
 app.use("/", businessRoutes);
-app.use("/api/auth", authRoutes);
-app.use("/api/admin", adminRoutes);
 
 // Default Route
 app.get("/", (req, res) => {
