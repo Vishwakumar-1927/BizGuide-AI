@@ -20,9 +20,16 @@ app.use(express.json());
 // Routes
 const businessRoutes = require("./routes/businessRoutes");
 const authRoutes = require("./routes/authRoutes");
+const adminRoutes = require("./routes/adminRoutes");
 
+// Business Routes
 app.use("/", businessRoutes);
+
+// Authentication Routes
 app.use("/api/auth", authRoutes);
+
+// Admin Routes
+app.use("/api/admin", adminRoutes);
 
 // Default Route
 app.get("/", (req, res) => {
