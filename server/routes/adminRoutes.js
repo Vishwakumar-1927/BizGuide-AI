@@ -88,4 +88,16 @@ router.get(
 );
 
 
+// =====================================
+// Delete Report
+// =====================================
+
+router.delete(
+    "/reports/:reportId",
+    authMiddleware,
+    adminMiddleware,
+    deleteReport
+);
+
+
 module.exports = router;
