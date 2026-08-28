@@ -46,14 +46,23 @@ function Features() {
   return (
     <section className="features">
 
-      <div className="feature-heading">
-        <span>FEATURES</span>
+      <div className="features-heading">
 
-        <h2>Powerful AI Features</h2>
+        <span className="features-label">
+          WHAT BIZGUIDE OFFERS
+        </span>
+
+        <h2>
+          Everything You Need to
+          <span> Build Smarter</span>
+        </h2>
 
         <p>
-          Everything you need to validate, plan, launch, and grow your business.
+          From validating your idea to planning investment and discovering
+          growth opportunities, BizGuide AI gives you the tools to make
+          confident business decisions.
         </p>
+
       </div>
 
       <div className="feature-grid">
@@ -62,17 +71,32 @@ function Features() {
 
           <div className="feature-card" key={index}>
 
-            <div className="feature-icon">
-              {feature.icon}
+            <div className="feature-top">
+
+              <div className="feature-icon">
+                {feature.icon}
+              </div>
+
+              <span className="feature-number">
+                0{index + 1}
+              </span>
+
             </div>
 
-            <h3>{feature.title}</h3>
+            <h3>
+              {feature.title}
+            </h3>
 
-            <p>{feature.desc}</p>
+            <p>
+              {feature.desc}
+            </p>
 
             <button className="feature-btn">
-              Learn More
+
+              <span>Explore Feature</span>
+
               <FaArrowRight />
+
             </button>
 
           </div>
