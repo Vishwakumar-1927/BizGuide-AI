@@ -6,27 +6,29 @@ function Hero() {
 
   return (
     <section className="hero">
+      <div className="hero-glow hero-glow-one"></div>
+      <div className="hero-glow hero-glow-two"></div>
 
       <div className="hero-container">
 
-        {/* LEFT */}
-
+        {/* LEFT SIDE */}
         <div className="hero-left">
 
-          <span className="hero-tag">
-            🚀 AI Powered Business Planning
-          </span>
+          <div className="hero-tag">
+            <span className="tag-dot"></span>
+            AI-Powered Business Planning
+          </div>
 
           <h1>
-            Build Your Dream
-            <span> Business </span>
-            With AI
+            Turn Your
+            <span> Business Idea </span>
+            Into Reality
           </h1>
 
           <p>
-            BizGuide AI helps entrepreneurs validate ideas, estimate investment,
-            analyze competitors, discover profitable locations, and generate
-            professional AI-powered business reports in minutes.
+            BizGuide AI helps entrepreneurs validate ideas, estimate
+            investment, analyze competitors, discover profitable locations,
+            and generate intelligent business reports in minutes.
           </p>
 
           <div className="hero-buttons">
@@ -35,132 +37,170 @@ function Hero() {
               className="primary-btn"
               onClick={() => navigate("/analyze")}
             >
-              Start Free Analysis
+              <span>Start Free Analysis</span>
+              <span className="btn-arrow">→</span>
             </button>
 
             <button
               className="secondary-btn"
               onClick={() => navigate("/history")}
             >
+              <span className="report-icon">▣</span>
               View Reports
             </button>
 
           </div>
 
-          <div className="hero-stats">
+          <div className="hero-trust">
 
-            <div>
-
-              <h2>1500+</h2>
-
-              <span>Reports</span>
-
+            <div className="trust-item">
+              <strong>1,500+</strong>
+              <span>AI Reports</span>
             </div>
 
-            <div>
+            <div className="trust-divider"></div>
 
-              <h2>95%</h2>
-
+            <div className="trust-item">
+              <strong>95%</strong>
               <span>Accuracy</span>
-
             </div>
 
-            <div>
+            <div className="trust-divider"></div>
 
-              <h2>24/7</h2>
-
+            <div className="trust-item">
+              <strong>24/7</strong>
               <span>AI Support</span>
-
             </div>
 
           </div>
 
         </div>
 
-        {/* RIGHT */}
-
+        {/* RIGHT SIDE */}
         <div className="hero-right">
 
           <div className="dashboard">
 
-            <div className="dashboard-header">
+            <div className="dashboard-top">
 
-              <h3>📊 AI Business Dashboard</h3>
+              <div className="dashboard-title">
+                <div className="dashboard-icon">✦</div>
 
-              <span className="live">
-                ● LIVE
-              </span>
-
-            </div>
-
-            <div className="dashboard-body">
-
-              <div className="item">
-
-                <span>Market Demand</span>
-
-                <strong>High 📈</strong>
-
+                <div>
+                  <h3>Business Intelligence</h3>
+                  <span>AI Analysis</span>
+                </div>
               </div>
 
-              <div className="item">
-
-                <span>Competition</span>
-
-                <strong>Medium ⚖️</strong>
-
-              </div>
-
-              <div className="item">
-
-                <span>Investment</span>
-
-                <strong>₹8 Lakhs</strong>
-
-              </div>
-
-              <div className="item">
-
-                <span>Expected Profit</span>
-
-                <strong>₹2.3L / Month</strong>
-
+              <div className="live">
+                <span></span>
+                LIVE
               </div>
 
             </div>
 
-            <div className="score-box">
+            <div className="dashboard-content">
 
-              <span>Business Score</span>
+              <div className="analysis-item">
+                <div>
+                  <span className="analysis-label">
+                    Market Demand
+                  </span>
 
-              <h1>87</h1>
+                  <div className="progress">
+                    <div
+                      className="progress-fill demand"
+                      style={{ width: "88%" }}
+                    ></div>
+                  </div>
+                </div>
 
-              <small>/100</small>
+                <strong>88%</strong>
+              </div>
+
+              <div className="analysis-item">
+                <div>
+                  <span className="analysis-label">
+                    Competition
+                  </span>
+
+                  <div className="progress">
+                    <div
+                      className="progress-fill competition"
+                      style={{ width: "58%" }}
+                    ></div>
+                  </div>
+                </div>
+
+                <strong>Medium</strong>
+              </div>
+
+              <div className="money-row">
+
+                <div className="money-card">
+                  <span>Investment</span>
+                  <strong>₹8L</strong>
+                </div>
+
+                <div className="money-card">
+                  <span>Monthly Profit</span>
+                  <strong>₹2.3L</strong>
+                </div>
+
+              </div>
+
+            </div>
+
+            <div className="score-section">
+
+              <div className="score-circle">
+                <div className="score-inner">
+                  <strong>87</strong>
+                  <span>/100</span>
+                </div>
+              </div>
+
+              <div className="score-info">
+                <span>Business Score</span>
+                <strong>Excellent Potential</strong>
+                <small>Based on AI analysis</small>
+              </div>
 
             </div>
 
           </div>
 
-          <div className="floating-card card1">
+          {/* FLOATING CARDS */}
 
-            📍 Best Location
-            <br />
-            Madurai
+          <div className="floating-card location-card">
+
+            <div className="floating-icon location-icon">
+              📍
+            </div>
+
+            <div>
+              <span>Best Location</span>
+              <strong>Madurai</strong>
+            </div>
 
           </div>
 
-          <div className="floating-card card2">
+          <div className="floating-card roi-card">
 
-            💰 ROI
-            <br />
-            18 Months
+            <div className="floating-icon roi-icon">
+              ↗
+            </div>
+
+            <div>
+              <span>Expected ROI</span>
+              <strong>18 Months</strong>
+            </div>
 
           </div>
 
         </div>
 
       </div>
-
     </section>
   );
 }
