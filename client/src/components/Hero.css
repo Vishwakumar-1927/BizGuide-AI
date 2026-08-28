@@ -634,3 +634,14 @@
   }
 
 }
+.hero .secondary-btn {
+  background: #ffffff;
+  color: #344054 !important;
+  border: 1px solid #d0d5dd;
+}
+
+.hero .secondary-btn:hover {
+  background: #f5f3ff;
+  color: #4f46e5 !important;
+  border-color: #6366f1;
+}
