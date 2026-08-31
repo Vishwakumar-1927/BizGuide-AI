@@ -8,6 +8,7 @@ import {
   FaShoppingBag,
   FaCar,
   FaHotel,
+  FaArrowRight,
 } from "react-icons/fa";
 
 function BusinessCategories() {
@@ -15,42 +16,50 @@ function BusinessCategories() {
     {
       icon: <FaUtensils />,
       title: "Restaurant",
-      desc: "Restaurants, Cafes & Food Trucks",
+      desc: "Restaurants, cafes & food businesses",
+      tag: "FOOD",
     },
     {
       icon: <FaStore />,
       title: "Retail Store",
-      desc: "Shops, Supermarkets & Stores",
+      desc: "Shops, supermarkets & local stores",
+      tag: "RETAIL",
     },
     {
       icon: <FaLaptopCode />,
       title: "IT Startup",
-      desc: "Software & Technology Businesses",
+      desc: "Software, apps & technology",
+      tag: "TECH",
     },
     {
       icon: <FaHeartbeat />,
       title: "Healthcare",
-      desc: "Medical Shops & Clinics",
+      desc: "Medical shops, clinics & services",
+      tag: "HEALTH",
     },
     {
       icon: <FaGraduationCap />,
       title: "Education",
-      desc: "Schools, Coaching & Training",
+      desc: "Coaching, training & learning",
+      tag: "EDUCATION",
     },
     {
       icon: <FaShoppingBag />,
       title: "E-Commerce",
-      desc: "Online Selling & Delivery",
+      desc: "Online stores & delivery businesses",
+      tag: "ONLINE",
     },
     {
       icon: <FaCar />,
       title: "Automobile",
-      desc: "Service Centers & Garages",
+      desc: "Garages, service & automobile",
+      tag: "AUTO",
     },
     {
       icon: <FaHotel />,
       title: "Hospitality",
-      desc: "Hotels & Resorts",
+      desc: "Hotels, resorts & stays",
+      tag: "TRAVEL",
     },
   ];
 
@@ -59,13 +68,19 @@ function BusinessCategories() {
 
       <div className="categories-heading">
 
-        <span>BUSINESS CATEGORIES</span>
+        <span className="categories-label">
+          BUSINESS CATEGORIES
+        </span>
 
-        <h2>Explore Popular Business Types</h2>
+        <h2>
+          Explore Your
+          <span> Business Possibilities</span>
+        </h2>
 
         <p>
-          BizGuide AI supports multiple industries to help entrepreneurs make
-          informed business decisions.
+          Choose from popular business sectors and use BizGuide AI to
+          understand the opportunities, investment, competition and
+          growth potential.
         </p>
 
       </div>
@@ -74,21 +89,60 @@ function BusinessCategories() {
 
         {categories.map((item, index) => (
 
-          <div className="category-card" key={index}>
+          <div
+            className="category-card"
+            key={index}
+          >
 
-            <div className="category-icon">
+            <div className="category-card-top">
 
-              {item.icon}
+              <div className="category-icon">
+                {item.icon}
+              </div>
+
+              <span className="category-number">
+                {String(index + 1).padStart(2, "0")}
+              </span>
 
             </div>
 
-            <h3>{item.title}</h3>
+            <div className="category-tag">
+              {item.tag}
+            </div>
 
-            <p>{item.desc}</p>
+            <h3>
+              {item.title}
+            </h3>
+
+            <p>
+              {item.desc}
+            </p>
+
+            <div className="category-link">
+
+              <span>
+                Explore
+              </span>
+
+              <FaArrowRight />
+
+            </div>
 
           </div>
 
         ))}
+
+      </div>
+
+      <div className="categories-footer">
+
+        <span>
+          Don't see your business type?
+        </span>
+
+        <strong>
+          BizGuide AI supports many more industries.
+        </strong>
 
       </div>
 
