@@ -1,6 +1,6 @@
 import "./CTA.css";
 import { useNavigate } from "react-router-dom";
-import { FaArrowRight, FaSparkles } from "react-icons/fa6";
+import { FaArrowRight, FaMagic } from "react-icons/fa";
 
 function CTA() {
   const navigate = useNavigate();
@@ -14,7 +14,7 @@ function CTA() {
       <div className="cta-content">
 
         <div className="cta-badge">
-          <FaSparkles />
+          <FaMagic />
           <span>READY TO BUILD?</span>
         </div>
 
