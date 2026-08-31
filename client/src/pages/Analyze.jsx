@@ -3,6 +3,7 @@ import "./Analyze.css";
 import AnalyzeForm from "../components/AnalyzeForm";
 import AnalysisInfo from "../components/AnalysisInfo";
 
+
 function Analyze() {
   return (
     <section className="analyze-page">
