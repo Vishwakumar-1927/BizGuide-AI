@@ -1,143 +1,171 @@
-/* ============================= */
-/* Analyze Page */
-/* ============================= */
+/* =========================
+   ANALYZE PAGE
+========================= */
 
-.analyze-page{
+.analyze-page {
+  min-height: 100vh;
 
-background:#f8fafc;
+  padding: 45px 30px 100px;
 
-padding:50px 30px 100px;
+  background:
+    radial-gradient(
+      circle at 10% 5%,
+      rgba(124, 58, 237, 0.07),
+      transparent 28%
+    ),
+    radial-gradient(
+      circle at 90% 35%,
+      rgba(79, 70, 229, 0.05),
+      transparent 25%
+    ),
+    #f8f8fc;
+}
 
-min-height:100vh;
+
+/* =========================
+   HERO
+========================= */
+
+.analyze-hero {
+  max-width: 850px;
+
+  margin: 25px auto 55px;
+
+  text-align: center;
+}
+
+.hero-badge {
+  display: inline-flex;
+
+  align-items: center;
+
+  padding: 9px 17px;
+
+  border: 1px solid #ddd6fe;
+
+  border-radius: 30px;
+
+  color: #6d28d9;
+
+  background: #f5f3ff;
+
+  font-size: 11px;
+
+  font-weight: 800;
+
+  letter-spacing: 1px;
+
+  box-shadow:
+    0 5px 15px rgba(124, 58, 237, 0.06);
+}
+
+.analyze-hero h1 {
+  margin: 20px 0 15px;
+
+  color: #111827;
+
+  font-size: clamp(38px, 5vw, 56px);
+
+  line-height: 1.1;
+
+  letter-spacing: -1.5px;
+
+  font-weight: 850;
+}
+
+.analyze-hero h1 span {
+  color: #6d28d9;
+}
+
+.analyze-hero p {
+  max-width: 720px;
+
+  margin: auto;
+
+  color: #667085;
+
+  font-size: 16px;
+
+  line-height: 1.8;
+}
+
+
+/* =========================
+   MAIN CONTENT
+========================= */
+
+.analyze-wrapper {
+  max-width: 1350px;
+
+  margin: auto;
+
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1.65fr)
+    minmax(340px, 0.9fr);
+
+  gap: 30px;
+
+  align-items: start;
+}
+
+
+/* =========================
+   FORM + INFO HOVER
+========================= */
+
+.analyze-wrapper > * {
+  transition:
+    transform 0.3s ease;
+}
+
+
+/* =========================
+   TABLET
+========================= */
+
+@media (max-width: 1100px) {
+
+  .analyze-wrapper {
+    grid-template-columns: 1fr;
+
+    max-width: 850px;
+  }
 
 }
 
-/* ============================= */
-/* Hero */
-/* ============================= */
 
-.analyze-hero{
+/* =========================
+   MOBILE
+========================= */
 
-max-width:850px;
+@media (max-width: 700px) {
 
-margin:40px auto 70px;
+  .analyze-page {
+    padding: 30px 18px 70px;
+  }
 
-text-align:center;
+  .analyze-hero {
+    margin: 15px auto 40px;
+  }
 
-}
+  .hero-badge {
+    font-size: 9px;
 
-.hero-badge{
+    padding: 8px 13px;
+  }
 
-display:inline-block;
+  .analyze-hero h1 {
+    font-size: 36px;
 
-padding:10px 22px;
+    letter-spacing: -1px;
+  }
 
-background:#dbeafe;
+  .analyze-hero p {
+    font-size: 14px;
 
-color:#2563eb;
-
-border-radius:30px;
-
-font-weight:600;
-
-margin-bottom:22px;
-
-font-size:15px;
-
-}
-
-.analyze-hero h1{
-
-font-size:56px;
-
-font-weight:800;
-
-line-height:1.2;
-
-color:#111827;
-
-margin-bottom:20px;
-
-}
-
-.analyze-hero h1 span{
-
-color:#2563eb;
-
-}
-
-.analyze-hero p{
-
-font-size:18px;
-
-color:#6b7280;
-
-line-height:1.8;
-
-max-width:720px;
-
-margin:auto;
-
-}
-
-/* ============================= */
-/* Main Layout */
-/* ============================= */
-
-.analyze-wrapper{
-
-max-width:1350px;
-
-margin:auto;
-
-display:grid;
-
-grid-template-columns:2fr 1fr;
-
-gap:35px;
-
-align-items:start;
-
-}
-
-/* ============================= */
-/* Responsive */
-/* ============================= */
-
-@media(max-width:1100px){
-
-.analyze-wrapper{
-
-grid-template-columns:1fr;
-
-}
-
-}
-
-@media(max-width:768px){
-
-.analyze-page{
-
-padding:30px 20px 70px;
-
-}
-
-.analyze-hero{
-
-margin:20px auto 50px;
-
-}
-
-.analyze-hero h1{
-
-font-size:38px;
-
-}
-
-.analyze-hero p{
-
-font-size:16px;
-
-}
+    line-height: 1.7;
+  }
 
 }
