@@ -7,7 +7,7 @@ function Navbar() {
     const token = localStorage.getItem("token");
 
     const user = JSON.parse(
-        localStorage.getItem("user")
+        localStorage.getItem("user") || "null"
     );
 
     const handleLogout = () => {
@@ -22,21 +22,26 @@ function Navbar() {
 
             <div className="navbar-container">
 
-                {/* ============================= */}
                 {/* Logo */}
-                {/* ============================= */}
 
                 <div
-                    className="logo"
+                    className="navbar-logo"
                     onClick={() => navigate("/")}
                 >
-                    🚀 BizGuide AI
+
+                    <div className="logo-icon">
+                        ✦
+                    </div>
+
+                    <div className="logo-text">
+                        <strong>BizGuide</strong>
+                        <span>AI</span>
+                    </div>
+
                 </div>
 
 
-                {/* ============================= */}
                 {/* Navigation */}
-                {/* ============================= */}
 
                 <nav className="nav-links">
 
@@ -60,8 +65,6 @@ function Navbar() {
                         </>
                     )}
 
-                    {/* Admin Link */}
-
                     {token && user?.role === "admin" && (
                         <NavLink to="/admin">
                             Admin
@@ -75,56 +78,65 @@ function Navbar() {
                 </nav>
 
 
-                {/* ============================= */}
                 {/* Right Side */}
-                {/* ============================= */}
 
-                <div className="nav-buttons">
+                <div className="nav-actions">
 
                     {!token ? (
 
                         <>
                             <button
                                 className="login-btn"
-                                onClick={() =>
-                                    navigate("/login")
-                                }
+                                onClick={() => navigate("/login")}
                             >
                                 Login
                             </button>
 
                             <button
-                                className="start-btn"
-                                onClick={() =>
-                                    navigate("/register")
-                                }
+                                className="register-btn"
+                                onClick={() => navigate("/register")}
                             >
-                                Register
+                                Get Started
+                                <span>→</span>
                             </button>
                         </>
 
                     ) : (
 
                         <>
-                            <div className="user-name">
-                                👋 {user?.name}
+
+                            <div className="user-box">
+
+                                <div className="user-avatar">
+                                    {(user?.name || "U")
+                                        .charAt(0)
+                                        .toUpperCase()}
+                                </div>
+
+                                <div className="user-info">
+                                    <span>Hello</span>
+                                    <strong>
+                                        {user?.name || "User"}
+                                    </strong>
+                                </div>
+
                             </div>
 
                             <button
-                                className="login-btn"
+                                className="logout-btn"
                                 onClick={handleLogout}
                             >
                                 Logout
                             </button>
 
                             <button
-                                className="start-btn"
-                                onClick={() =>
-                                    navigate("/analyze")
-                                }
+                                className="analyze-btn"
+                                onClick={() => navigate("/analyze")}
                             >
-                                Analyze →
+                                Analyze
+                                <span>→</span>
                             </button>
+
                         </>
 
                     )}
