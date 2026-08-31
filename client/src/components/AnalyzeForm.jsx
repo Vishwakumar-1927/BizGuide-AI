@@ -9,6 +9,8 @@ import {
   FaMoneyBillWave,
   FaClipboardList,
   FaMagic,
+  FaChevronDown,
+  FaCheckCircle,
 } from "react-icons/fa";
 
 function AnalyzeForm() {
@@ -49,7 +51,6 @@ function AnalyzeForm() {
     const token = localStorage.getItem("token");
     const freeAnalysisUsed = localStorage.getItem("freeAnalysisUsed");
 
-    // Free analysis for guest users
     if (!token && freeAnalysisUsed) {
       alert(
         "🎉 Your free AI analysis has already been used.\n\nPlease Login or Register to continue."
@@ -74,20 +75,21 @@ function AnalyzeForm() {
       setLoading(true);
 
       const response = await fetch(
-  "https://bizguide-ai-backend.onrender.com/analyze",
-      {
-        method: "POST",
+        "https://bizguide-ai-backend.onrender.com/analyze",
+        {
+          method: "POST",
 
-        headers: {
-          "Content-Type": "application/json",
+          headers: {
+            "Content-Type": "application/json",
 
-          ...(token && {
-            Authorization: `Bearer ${token}`,
-          }),
-        },
+            ...(token && {
+              Authorization: `Bearer ${token}`,
+            }),
+          },
 
-        body: JSON.stringify(formData),
-      });
+          body: JSON.stringify(formData),
+        }
+      );
 
       const data = await response.json();
 
@@ -96,7 +98,6 @@ function AnalyzeForm() {
         return;
       }
 
-      // Save free analysis
       if (!token) {
         localStorage.setItem("freeAnalysisUsed", "true");
       }
@@ -106,48 +107,109 @@ function AnalyzeForm() {
       });
 
     } catch (error) {
-
       console.error(error);
 
       alert("Unable to connect to server.");
 
     } finally {
-
       setLoading(false);
-
     }
   };
 
   return (
     <>
+      {/* AI LOADING */}
+
       {loading && (
         <div className="loading-overlay">
+
           <div className="loading-card">
 
-            <div className="loader"></div>
+            <div className="ai-loader">
+              <FaMagic />
+            </div>
 
-            <h2>🤖 BizGuide AI</h2>
+            <div className="loading-badge">
+              AI ANALYSIS IN PROGRESS
+            </div>
 
-            <p>Analyzing your business idea...</p>
+            <h2>
+              Building Your Business Report
+            </h2>
+
+            <p>
+              BizGuide AI is analyzing your business idea,
+              market potential, competition and investment.
+            </p>
+
+            <div className="loading-steps">
+
+              <span>
+                <FaCheckCircle />
+                Market analysis
+              </span>
+
+              <span>
+                <FaCheckCircle />
+                Competition research
+              </span>
+
+              <span>
+                <FaCheckCircle />
+                Investment analysis
+              </span>
+
+            </div>
 
             <div className="loading-bar">
               <div className="loading-progress"></div>
             </div>
 
-            <span>
-              Please wait while AI generates your business report.
-            </span>
+            <small>
+              Please don't close this page.
+            </small>
 
           </div>
+
         </div>
       )}
 
-      <form className="analyze-form" onSubmit={handleSubmit}>
 
-        <h2>Business Details</h2>
+      {/* FORM */}
+
+      <form
+        className="analyze-form"
+        onSubmit={handleSubmit}
+      >
+
+        <div className="form-heading">
+
+          <div className="form-heading-icon">
+            ✦
+          </div>
+
+          <div>
+            <span>BUSINESS ANALYSIS</span>
+
+            <h2>
+              Tell Us About Your Business
+            </h2>
+          </div>
+
+        </div>
+
+
+        <div className="form-divider"></div>
+
+
+        {/* BUSINESS NAME */}
 
         <div className="form-group">
-          <label>Business Name</label>
+
+          <label>
+            Business Name
+            <span>*</span>
+          </label>
 
           <div className="input-box">
 
@@ -156,79 +218,117 @@ function AnalyzeForm() {
             <input
               type="text"
               name="businessName"
-              placeholder="Fresh Bakery"
+              placeholder="Example: Fresh Bakery"
               value={formData.businessName}
               onChange={handleChange}
             />
 
           </div>
+
         </div>
+
+
+        {/* CATEGORY */}
 
         <div className="form-group">
 
-          <label>Business Category</label>
+          <label>
+            Business Category
+            <span>*</span>
+          </label>
 
-          <select
-            name="category"
-            value={formData.category}
-            onChange={handleChange}
-          >
+          <div className="select-box">
 
-            <option value="">Select Category</option>
+            <select
+              name="category"
+              value={formData.category}
+              onChange={handleChange}
+            >
 
-            {categories.map((item) => (
-              <option key={item} value={item}>
-                {item}
+              <option value="">
+                Select your business category
               </option>
-            ))}
 
-          </select>
+              {categories.map((item) => (
+                <option
+                  key={item}
+                  value={item}
+                >
+                  {item}
+                </option>
+              ))}
 
-        </div>
+            </select>
 
-        <div className="form-group">
-
-          <label>Location</label>
-
-          <div className="input-box">
-
-            <FaMapMarkerAlt className="input-icon" />
-
-            <input
-              type="text"
-              name="location"
-              placeholder="Rajapalayam"
-              value={formData.location}
-              onChange={handleChange}
-            />
+            <FaChevronDown className="select-icon" />
 
           </div>
 
         </div>
 
-        <div className="form-group">
 
-          <label>Estimated Budget (₹)</label>
+        {/* LOCATION + BUDGET */}
 
-          <div className="input-box">
+        <div className="form-row">
 
-            <FaMoneyBillWave className="input-icon" />
+          <div className="form-group">
 
-            <input
-              type="number"
-              name="budget"
-              placeholder="800000"
-              value={formData.budget}
-              onChange={handleChange}
-            />
+            <label>
+              Business Location
+              <span>*</span>
+            </label>
+
+            <div className="input-box">
+
+              <FaMapMarkerAlt className="input-icon" />
+
+              <input
+                type="text"
+                name="location"
+                placeholder="Example: Rajapalayam"
+                value={formData.location}
+                onChange={handleChange}
+              />
+
+            </div>
+
+          </div>
+
+
+          <div className="form-group">
+
+            <label>
+              Estimated Budget
+              <span>*</span>
+            </label>
+
+            <div className="input-box">
+
+              <FaMoneyBillWave className="input-icon" />
+
+              <input
+                type="number"
+                name="budget"
+                placeholder="Example: 800000"
+                value={formData.budget}
+                onChange={handleChange}
+              />
+
+            </div>
 
           </div>
 
         </div>
 
+
+        {/* DESCRIPTION */}
+
         <div className="form-group">
 
-          <label>Business Description</label>
+          <label>
+            Business Description
+            <span>*</span>
+          </label>
 
           <div className="textarea-box">
 
@@ -237,14 +337,21 @@ function AnalyzeForm() {
             <textarea
               rows="5"
               name="description"
-              placeholder="Describe your business idea..."
+              placeholder="Describe your business idea, products or services, target customers, and anything else you think is important..."
               value={formData.description}
               onChange={handleChange}
             />
 
           </div>
 
+          <small className="field-hint">
+            Give AI as much detail as possible for better insights.
+          </small>
+
         </div>
+
+
+        {/* SUBMIT */}
 
         <button
           type="submit"
@@ -252,17 +359,38 @@ function AnalyzeForm() {
           disabled={loading}
         >
 
-          <FaMagic />
+          <span>
+            <FaMagic />
+          </span>
 
-          {loading
-            ? " Generating AI Report..."
-            : " Analyze with AI"}
+          <div>
+            <strong>
+              Analyze My Business
+            </strong>
+
+            <small>
+              Generate AI Business Report
+            </small>
+          </div>
+
+          <FaArrowIcon />
 
         </button>
+
+        <p className="form-note">
+          🔒 Your business information is securely processed.
+        </p>
 
       </form>
     </>
   );
+}
+
+
+/* Simple arrow component */
+
+function FaArrowIcon() {
+  return <span className="submit-arrow">→</span>;
 }
 
 export default AnalyzeForm;
