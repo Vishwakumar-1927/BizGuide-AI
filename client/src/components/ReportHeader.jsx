@@ -3,11 +3,28 @@ import "./ReportHeader.css";
 function ReportHeader() {
   return (
     <div className="report-header">
-      <h1>📊 BizGuide AI Report</h1>
+
+      <div className="report-header-badge">
+        <span className="report-badge-dot"></span>
+        AI BUSINESS INTELLIGENCE
+      </div>
+
+      <div className="report-header-icon">
+        📊
+      </div>
+
+      <h1>
+        BizGuide AI
+        <span> Business Report</span>
+      </h1>
 
       <p>
-        AI-Powered Business Intelligence Report
+        AI-powered insights to help you understand your market,
+        investment, competition, and business growth potential.
       </p>
+
+      <div className="report-header-line"></div>
+
     </div>
   );
 }
