@@ -1,4 +1,205 @@
-.report-page{
-    background:#F3F4F6;
-    padding:40px 20px 80px;
+/* =========================
+   REPORT PAGE
+========================= */
+
+.report-page {
+  min-height: 100vh;
+
+  padding: 40px 30px 100px;
+
+  background:
+    radial-gradient(
+      circle at 10% 5%,
+      rgba(124, 58, 237, 0.07),
+      transparent 25%
+    ),
+    radial-gradient(
+      circle at 90% 15%,
+      rgba(79, 70, 229, 0.05),
+      transparent 25%
+    ),
+    #f7f7fb;
+}
+
+
+/* =========================
+   DOWNLOAD AREA
+========================= */
+
+.download-container {
+  max-width: 1250px;
+
+  margin: 0 auto 25px;
+
+  display: flex;
+
+  justify-content: flex-end;
+}
+
+.download-btn {
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 9px;
+
+  padding: 11px 18px;
+
+  border: 1px solid #ddd6fe;
+
+  border-radius: 10px;
+
+  color: #5b3fd6;
+
+  background: #ffffff;
+
+  font-family: inherit;
+
+  font-size: 13px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 5px 15px rgba(79, 70, 229, 0.07);
+
+  transition: all 0.25s ease;
+}
+
+.download-btn:hover {
+  color: white;
+
+  border-color: #6d28d9;
+
+  background:
+    linear-gradient(
+      135deg,
+      #4f46e5,
+      #7c3aed
+    );
+
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 10px 25px rgba(79, 70, 229, 0.22);
+}
+
+
+/* =========================
+   REPORT CONTENT
+========================= */
+
+#report-content {
+  width: 100%;
+
+  max-width: 1250px;
+
+  margin: auto;
+
+  padding: 35px;
+
+  border: 1px solid #ebe9f4;
+
+  border-radius: 26px;
+
+  background: #ffffff;
+
+  box-shadow:
+    0 20px 60px rgba(31, 35, 60, 0.07);
+}
+
+
+/* =========================
+   REPORT SECTIONS
+========================= */
+
+#report-content > * {
+  position: relative;
+}
+
+
+/* Add spacing between report components */
+
+#report-content > * + * {
+  margin-top: 25px;
+}
+
+
+/* =========================
+   PRINT / PDF
+========================= */
+
+@media print {
+
+  .download-container {
+    display: none;
+  }
+
+  .report-page {
+    padding: 0;
+
+    background: white;
+  }
+
+  #report-content {
+    max-width: none;
+
+    padding: 20px;
+
+    border: none;
+
+    border-radius: 0;
+
+    box-shadow: none;
+  }
+
+}
+
+
+/* =========================
+   TABLET
+========================= */
+
+@media (max-width: 900px) {
+
+  .report-page {
+    padding: 30px 20px 70px;
+  }
+
+  #report-content {
+    padding: 25px;
+  }
+
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 600px) {
+
+  .report-page {
+    padding: 20px 12px 60px;
+  }
+
+  .download-container {
+    justify-content: center;
+
+    margin-bottom: 18px;
+  }
+
+  .download-btn {
+    width: 100%;
+
+    justify-content: center;
+  }
+
+  #report-content {
+    padding: 18px;
+
+    border-radius: 18px;
+  }
+
 }
