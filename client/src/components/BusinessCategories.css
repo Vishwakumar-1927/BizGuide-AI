@@ -2,13 +2,43 @@
   position: relative;
   overflow: hidden;
   padding: 110px 30px;
-  background:
-    radial-gradient(
-      circle at 15% 20%,
-      rgba(124, 58, 237, 0.07),
-      transparent 28%
-    ),
-    #ffffff;
+  background: #f8f7ff;
+}
+
+/* =========================
+   BACKGROUND EFFECTS
+========================= */
+
+.categories::before {
+  content: "";
+  position: absolute;
+
+  width: 420px;
+  height: 420px;
+
+  top: -220px;
+  right: -160px;
+
+  border-radius: 50%;
+
+  background: rgba(124, 58, 237, 0.08);
+
+  filter: blur(2px);
+}
+
+.categories::after {
+  content: "";
+  position: absolute;
+
+  width: 300px;
+  height: 300px;
+
+  bottom: -170px;
+  left: -120px;
+
+  border-radius: 50%;
+
+  background: rgba(79, 70, 229, 0.06);
 }
 
 /* =========================
@@ -18,34 +48,51 @@
 .categories-heading {
   position: relative;
   z-index: 2;
+
   max-width: 760px;
+
   margin: 0 auto 65px;
+
   text-align: center;
 }
 
 .categories-heading span {
   display: inline-block;
+
   margin-bottom: 15px;
-  color: #4f46e5;
+
+  color: #6d28d9;
+
   font-size: 12px;
+
   font-weight: 800;
+
   letter-spacing: 2.5px;
 }
 
 .categories-heading h2 {
   margin: 0 0 18px;
-  color: #101828;
+
+  color: #111827;
+
   font-size: clamp(36px, 4vw, 48px);
-  line-height: 1.15;
-  letter-spacing: -1.3px;
+
+  line-height: 1.12;
+
+  letter-spacing: -1.5px;
+
   font-weight: 850;
 }
 
 .categories-heading p {
   max-width: 680px;
+
   margin: auto;
+
   color: #667085;
+
   font-size: 16px;
+
   line-height: 1.8;
 }
 
@@ -58,40 +105,47 @@
   z-index: 2;
 
   max-width: 1250px;
+
   margin: auto;
 
   display: grid;
+
   grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
+
+  gap: 18px;
 }
 
 /* =========================
-   CARD
+   CATEGORY CARD
 ========================= */
 
 .category-card {
   position: relative;
+
+  min-height: 220px;
+
+  padding: 27px 23px;
+
   overflow: hidden;
 
-  padding: 30px 22px;
+  border: 1px solid #e5e7eb;
 
-  min-height: 225px;
-
-  border: 1px solid #eaecf0;
   border-radius: 22px;
 
-  background: #ffffff;
+  background: rgba(255, 255, 255, 0.92);
 
-  text-align: center;
+  text-align: left;
 
   box-shadow:
-    0 8px 25px rgba(16, 24, 40, 0.045);
+    0 8px 25px rgba(30, 27, 75, 0.05);
 
   transition:
-    transform 0.3s ease,
-    border-color 0.3s ease,
-    box-shadow 0.3s ease;
+    transform 0.35s ease,
+    box-shadow 0.35s ease,
+    border-color 0.35s ease;
 }
+
+/* Purple bottom glow */
 
 .category-card::before {
   content: "";
@@ -99,10 +153,10 @@
   position: absolute;
 
   left: 0;
-  top: 0;
+  right: 0;
+  bottom: 0;
 
-  width: 100%;
-  height: 3px;
+  height: 4px;
 
   background:
     linear-gradient(
@@ -113,63 +167,70 @@
     );
 
   transform: scaleX(0);
+
   transform-origin: left;
 
-  transition: transform 0.3s ease;
+  transition: transform 0.35s ease;
+}
+
+/* Background circle */
+
+.category-card::after {
+  content: "";
+
+  position: absolute;
+
+  width: 110px;
+  height: 110px;
+
+  right: -45px;
+  top: -45px;
+
+  border-radius: 50%;
+
+  background: rgba(124, 58, 237, 0.06);
+
+  transition: transform 0.4s ease;
 }
 
 .category-card:hover {
-  transform: translateY(-9px);
+  transform: translateY(-8px);
 
-  border-color: #ddd6fe;
+  border-color: #d8d2ff;
 
   box-shadow:
-    0 20px 45px rgba(79, 70, 229, 0.12);
+    0 20px 45px rgba(79, 70, 229, 0.13);
 }
 
 .category-card:hover::before {
   transform: scaleX(1);
 }
 
+.category-card:hover::after {
+  transform: scale(1.6);
+}
+
 /* =========================
-   ICON
+   TOP ROW
 ========================= */
 
 .category-icon {
-  width: 68px;
-  height: 68px;
+  position: relative;
+  z-index: 2;
 
-  margin: 0 auto 20px;
+  width: 58px;
+  height: 58px;
 
   display: flex;
+
   align-items: center;
   justify-content: center;
 
-  border-radius: 18px;
+  margin-bottom: 22px;
 
-  color: #4f46e5;
+  border-radius: 16px;
 
-  background:
-    linear-gradient(
-      135deg,
-      #eef2ff,
-      #f5f3ff
-    );
-
-  border: 1px solid #e0e7ff;
-
-  font-size: 27px;
-
-  transition:
-    transform 0.3s ease,
-    color 0.3s ease,
-    background 0.3s ease;
-}
-
-.category-card:hover .category-icon {
-  transform: scale(1.08) rotate(-4deg);
-
-  color: #ffffff;
+  color: white;
 
   background:
     linear-gradient(
@@ -177,6 +238,38 @@
       #4f46e5,
       #7c3aed
     );
+
+  font-size: 23px;
+
+  box-shadow:
+    0 10px 22px rgba(79, 70, 229, 0.22);
+
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.category-card:hover .category-icon {
+  transform: scale(1.08) rotate(-4deg);
+
+  box-shadow:
+    0 15px 30px rgba(79, 70, 229, 0.30);
+}
+
+/* =========================
+   NUMBER
+========================= */
+
+.category-card h3::before {
+  content: "";
+
+  display: inline-block;
+
+  margin-right: 8px;
+
+  color: #c4b5fd;
+
+  font-size: 10px;
 }
 
 /* =========================
@@ -184,19 +277,25 @@
 ========================= */
 
 .category-card h3 {
+  position: relative;
+  z-index: 2;
+
   margin: 0 0 9px;
 
-  color: #101828;
+  color: #111827;
 
-  font-size: 18px;
+  font-size: 19px;
 
   font-weight: 750;
 }
 
 .category-card p {
-  max-width: 210px;
+  position: relative;
+  z-index: 2;
 
-  margin: auto;
+  max-width: 220px;
+
+  margin: 0;
 
   color: #667085;
 
@@ -206,42 +305,77 @@
 }
 
 /* =========================
-   DIFFERENT ICON SHADES
+   ICON VARIATIONS
 ========================= */
 
 .category-card:nth-child(2) .category-icon {
-  color: #6366f1;
+  background:
+    linear-gradient(
+      135deg,
+      #6366f1,
+      #8b5cf6
+    );
 }
 
 .category-card:nth-child(3) .category-icon {
-  color: #7c3aed;
+  background:
+    linear-gradient(
+      135deg,
+      #7c3aed,
+      #9333ea
+    );
 }
 
 .category-card:nth-child(4) .category-icon {
-  color: #8b5cf6;
+  background:
+    linear-gradient(
+      135deg,
+      #5b21b6,
+      #7c3aed
+    );
 }
 
 .category-card:nth-child(5) .category-icon {
-  color: #5b21b6;
+  background:
+    linear-gradient(
+      135deg,
+      #4f46e5,
+      #6366f1
+    );
 }
 
 .category-card:nth-child(6) .category-icon {
-  color: #6d28d9;
+  background:
+    linear-gradient(
+      135deg,
+      #6d28d9,
+      #8b5cf6
+    );
 }
 
 .category-card:nth-child(7) .category-icon {
-  color: #4f46e5;
+  background:
+    linear-gradient(
+      135deg,
+      #4338ca,
+      #7c3aed
+    );
 }
 
 .category-card:nth-child(8) .category-icon {
-  color: #7c3aed;
+  background:
+    linear-gradient(
+      135deg,
+      #7c3aed,
+      #a855f7
+    );
 }
 
 /* =========================
    TABLET
 ========================= */
 
-@media (max-width: 1100px) {
+@media (max-width: 1050px) {
 
   .categories {
     padding: 90px 25px;
@@ -277,12 +411,27 @@
 
   .categories-grid {
     grid-template-columns: 1fr;
-    gap: 15px;
+
+    gap: 14px;
   }
 
   .category-card {
     min-height: auto;
-    padding: 27px 20px;
+
+    padding: 25px 22px;
+  }
+
+  .category-icon {
+    width: 55px;
+    height: 55px;
+
+    margin-bottom: 18px;
+
+    font-size: 21px;
+  }
+
+  .category-card h3 {
+    font-size: 18px;
   }
 
 }
