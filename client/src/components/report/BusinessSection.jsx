@@ -1,93 +1,123 @@
 import "./BusinessSection.css";
+
 import {
   FaBuilding,
   FaTags,
   FaMapMarkerAlt,
   FaMoneyBillWave,
   FaFileAlt,
+  FaCheckCircle,
 } from "react-icons/fa";
 
 function BusinessSection({ business }) {
   if (!business) return null;
 
+  const details = [
+    {
+      icon: <FaBuilding />,
+      label: "Business Name",
+      value: business.businessName,
+    },
+    {
+      icon: <FaTags />,
+      label: "Category",
+      value: business.category,
+    },
+    {
+      icon: <FaMapMarkerAlt />,
+      label: "Location",
+      value: business.location,
+    },
+    {
+      icon: <FaMoneyBillWave />,
+      label: "Investment",
+      value: business.budget,
+    },
+  ];
+
   return (
     <section className="business-section">
 
+      {/* SECTION HEADER */}
+
       <div className="section-header">
-        <h2>Business Information</h2>
-        <p>
-          Basic details about the proposed business.
-        </p>
-      </div>
 
-      <div className="business-grid">
+        <div className="section-title-row">
 
-        <div className="info-card">
-
-          <div className="info-icon blue">
+          <div className="section-title-icon">
             <FaBuilding />
           </div>
 
-          <div className="info-content">
-            <span>Business Name</span>
-            <h3>{business.businessName}</h3>
+          <div>
+            <span>BUSINESS OVERVIEW</span>
+
+            <h2>Business Information</h2>
           </div>
 
         </div>
 
-        <div className="info-card">
-
-          <div className="info-icon green">
-            <FaTags />
-          </div>
-
-          <div className="info-content">
-            <span>Category</span>
-            <h3>{business.category}</h3>
-          </div>
-
-        </div>
-
-        <div className="info-card">
-
-          <div className="info-icon orange">
-            <FaMapMarkerAlt />
-          </div>
-
-          <div className="info-content">
-            <span>Location</span>
-            <h3>{business.location}</h3>
-          </div>
-
-        </div>
-
-        <div className="info-card">
-
-          <div className="info-icon purple">
-            <FaMoneyBillWave />
-          </div>
-
-          <div className="info-content">
-            <span>Investment</span>
-            <h3>{business.budget}</h3>
-          </div>
-
+        <div className="verified-badge">
+          <FaCheckCircle />
+          Details Provided
         </div>
 
       </div>
+
+
+      {/* BUSINESS DETAILS */}
+
+      <div className="business-grid">
+
+        {details.map((item, index) => (
+
+          <div
+            className="info-card"
+            key={index}
+          >
+
+            <div className="info-icon">
+              {item.icon}
+            </div>
+
+            <div className="info-content">
+
+              <span>
+                {item.label}
+              </span>
+
+              <h3>
+                {item.value || "Not provided"}
+              </h3>
+
+            </div>
+
+          </div>
+
+        ))}
+
+      </div>
+
+
+      {/* DESCRIPTION */}
 
       <div className="description-card">
 
         <div className="description-header">
 
-          <FaFileAlt />
+          <div className="description-icon">
+            <FaFileAlt />
+          </div>
 
-          <h3>Business Description</h3>
+          <div>
+            <span>BUSINESS IDEA</span>
+
+            <h3>Business Description</h3>
+          </div>
 
         </div>
 
         <p>
-          {business.description}
+          {business.description || "No description provided."}
         </p>
 
       </div>
