@@ -1,9 +1,11 @@
 import "./MarketAnalysis.css";
+
 import {
   FaChartLine,
   FaUsers,
   FaMapMarkerAlt,
   FaTrophy,
+  FaArrowUp,
 } from "react-icons/fa";
 
 function MarketAnalysis({ report }) {
@@ -16,69 +18,102 @@ function MarketAnalysis({ report }) {
     bestLocation,
   } = report.marketAnalysis;
 
+  const marketItems = [
+    {
+      icon: <FaChartLine />,
+      label: "MARKET DEMAND",
+      title: "Market Demand",
+      value: marketDemand,
+      className: "demand",
+    },
+    {
+      icon: <FaTrophy />,
+      label: "COMPETITION",
+      title: "Competition",
+      value: competition,
+      className: "competition",
+    },
+    {
+      icon: <FaUsers />,
+      label: "CUSTOMER SEGMENT",
+      title: "Target Customers",
+      value: targetCustomers,
+      className: "customers",
+    },
+    {
+      icon: <FaMapMarkerAlt />,
+      label: "LOCATION",
+      title: "Best Location",
+      value: bestLocation,
+      className: "location",
+    },
+  ];
+
   return (
     <section className="market-section">
 
+      {/* HEADER */}
+
       <div className="market-header">
 
-        <h2>Market Analysis</h2>
+        <div className="market-title">
 
-        <p>
-          AI-generated insights about demand, competition, customers and the
-          most suitable business location.
-        </p>
-
-      </div>
-
-      <div className="market-grid">
-
-        <div className="market-card">
-
-          <div className="market-icon blue">
+          <div className="market-title-icon">
             <FaChartLine />
           </div>
 
-          <h3>Market Demand</h3>
+          <div>
+            <span>MARKET INTELLIGENCE</span>
 
-          <p>{marketDemand}</p>
+            <h2>Market Analysis</h2>
 
-        </div>
-
-        <div className="market-card">
-
-          <div className="market-icon orange">
-            <FaTrophy />
+            <p>
+              AI-generated insights into demand, competition,
+              customers, and location opportunities.
+            </p>
           </div>
 
-          <h3>Competition</h3>
-
-          <p>{competition}</p>
-
         </div>
 
-        <div className="market-card">
+      </div>
 
-          <div className="market-icon green">
-            <FaUsers />
+
+      {/* MARKET CARDS */}
+
+      <div className="market-grid">
+
+        {marketItems.map((item, index) => (
+
+          <div
+            className={`market-card ${item.className}`}
+            key={index}
+          >
+
+            <div className="market-card-top">
+
+              <div className="market-icon">
+                {item.icon}
+              </div>
+
+              <FaArrowUp className="market-arrow" />
+
+            </div>
+
+            <span className="market-label">
+              {item.label}
+            </span>
+
+            <h3>
+              {item.title}
+            </h3>
+
+            <p>
+              {item.value || "No information available."}
+            </p>
+
           </div>
 
-          <h3>Target Customers</h3>
-
-          <p>{targetCustomers}</p>
-
-        </div>
-
-        <div className="market-card">
-
-          <div className="market-icon red">
-            <FaMapMarkerAlt />
-          </div>
-
-          <h3>Best Location</h3>
-
-          <p>{bestLocation}</p>
-
-        </div>
+        ))}
 
       </div>
 
