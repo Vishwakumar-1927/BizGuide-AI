@@ -1,5 +1,5 @@
 .business-card{
-    background:#fff;
+    background:white;
     padding:30px;
     border-radius:18px;
     box-shadow:0 8px 25px rgba(0,0,0,.08);
@@ -8,7 +8,7 @@
 
 .business-card h2{
     color:#1E3A8A;
-    margin-bottom:20px;
+    margin-bottom:25px;
 }
 
 .info-grid{
@@ -25,9 +25,9 @@
 
 .info-box label{
     display:block;
-    font-size:14px;
     color:#6B7280;
     margin-bottom:8px;
+    font-size:14px;
 }
 
 .info-box span{
@@ -42,7 +42,7 @@
 .description-box label{
     display:block;
     margin-bottom:10px;
-    font-weight:bold;
+    font-weight:600;
 }
 
 .description-box p{
