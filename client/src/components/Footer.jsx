@@ -7,101 +7,206 @@ import {
   FaEnvelope,
   FaPhoneAlt,
   FaMapMarkerAlt,
+  FaArrowRight,
 } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 function Footer() {
+  const navigate = useNavigate();
+
   return (
     <footer className="footer">
 
       <div className="footer-container">
 
-        {/* Brand */}
+        {/* =========================
+            BRAND
+        ========================= */}
 
-        <div className="footer-section">
+        <div className="footer-brand">
 
-          <h2>BizGuide AI</h2>
+          <div
+            className="footer-logo"
+            onClick={() => navigate("/")}
+          >
+
+            <div className="footer-logo-icon">
+              ✦
+            </div>
+
+            <div>
+              <strong>BizGuide</strong>
+              <span>AI</span>
+            </div>
+
+          </div>
 
           <p>
-            AI-powered business guidance platform that helps entrepreneurs
-            validate ideas, analyze markets, estimate investments, and
-            generate intelligent business reports.
+            Your AI-powered business companion for validating ideas,
+            understanding markets, planning investments, and making
+            smarter business decisions.
           </p>
 
-          <div className="social-icons">
+          <div className="footer-socials">
 
-            <a href="#"><FaFacebookF /></a>
+            <a href="#" aria-label="Facebook">
+              <FaFacebookF />
+            </a>
 
-            <a href="#"><FaTwitter /></a>
+            <a href="#" aria-label="Twitter">
+              <FaTwitter />
+            </a>
 
-            <a href="#"><FaLinkedinIn /></a>
+            <a href="#" aria-label="LinkedIn">
+              <FaLinkedinIn />
+            </a>
 
-            <a href="#"><FaGithub /></a>
+            <a href="#" aria-label="GitHub">
+              <FaGithub />
+            </a>
 
           </div>
 
         </div>
 
-        {/* Quick Links */}
 
-        <div className="footer-section">
+        {/* =========================
+            PRODUCT
+        ========================= */}
 
-          <h3>Quick Links</h3>
+        <div className="footer-column">
 
-          <ul>
+          <h3>Product</h3>
 
-            <li><a href="/">Home</a></li>
+          <button onClick={() => navigate("/")}>
+            Home
+          </button>
 
-            <li><a href="/analyze">Analyze</a></li>
+          <button onClick={() => navigate("/analyze")}>
+            Business Analysis
+          </button>
 
-            <li><a href="/report">Reports</a></li>
+          <button onClick={() => navigate("/history")}>
+            Reports
+          </button>
 
-            <li><a href="/about">About</a></li>
-
-          </ul>
-
-        </div>
-
-        {/* Resources */}
-
-        <div className="footer-section">
-
-          <h3>Resources</h3>
-
-          <ul>
-
-            <li>Market Research</li>
-
-            <li>Business Planning</li>
-
-            <li>Investment Guide</li>
-
-            <li>Startup Support</li>
-
-          </ul>
+          <button onClick={() => navigate("/about")}>
+            About BizGuide
+          </button>
 
         </div>
 
-        {/* Contact */}
 
-        <div className="footer-section">
+        {/* =========================
+            SERVICES
+        ========================= */}
 
-          <h3>Contact</h3>
+        <div className="footer-column">
 
-          <p><FaEnvelope /> bizguideai@gmail.com</p>
+          <h3>Services</h3>
 
-          <p><FaPhoneAlt /> +91 6369121647</p>
+          <span>Market Analysis</span>
 
-          <p><FaMapMarkerAlt /> Rajapalayam, Tamil Nadu, India</p>
+          <span>Investment Planning</span>
+
+          <span>Competitor Research</span>
+
+          <span>Location Intelligence</span>
+
+        </div>
+
+
+        {/* =========================
+            CONTACT
+        ========================= */}
+
+        <div className="footer-column footer-contact">
+
+          <h3>Get In Touch</h3>
+
+          <div className="contact-item">
+
+            <div>
+              <FaEnvelope />
+            </div>
+
+            <span>
+              bizguideai@gmail.com
+            </span>
+
+          </div>
+
+          <div className="contact-item">
+
+            <div>
+              <FaPhoneAlt />
+            </div>
+
+            <span>
+              +91 6369121647
+            </span>
+
+          </div>
+
+          <div className="contact-item">
+
+            <div>
+              <FaMapMarkerAlt />
+            </div>
+
+            <span>
+              Rajapalayam, Tamil Nadu, India
+            </span>
+
+          </div>
 
         </div>
 
       </div>
+
+
+      {/* =========================
+          BOTTOM CTA
+      ========================= */}
+
+      <div className="footer-cta">
+
+        <div>
+
+          <strong>
+            Ready to validate your business idea?
+          </strong>
+
+          <span>
+            Get AI-powered insights in minutes.
+          </span>
+
+        </div>
+
+        <button onClick={() => navigate("/analyze")}>
+
+          Start Analysis
+
+          <FaArrowRight />
+
+        </button>
+
+      </div>
+
+
+      {/* =========================
+          COPYRIGHT
+      ========================= */}
 
       <div className="footer-bottom">
 
         <p>
           © 2026 BizGuide AI. All Rights Reserved.
         </p>
+
+        <span>
+          Built with AI for entrepreneurs
+        </span>
 
       </div>
 
