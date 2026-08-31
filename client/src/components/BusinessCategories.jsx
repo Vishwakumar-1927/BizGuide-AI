@@ -16,50 +16,42 @@ function BusinessCategories() {
     {
       icon: <FaUtensils />,
       title: "Restaurant",
-      desc: "Restaurants, cafes & food businesses",
-      tag: "FOOD",
+      desc: "Restaurants, cafes and food businesses",
     },
     {
       icon: <FaStore />,
       title: "Retail Store",
-      desc: "Shops, supermarkets & local stores",
-      tag: "RETAIL",
+      desc: "Shops, supermarkets and local stores",
     },
     {
       icon: <FaLaptopCode />,
       title: "IT Startup",
-      desc: "Software, apps & technology",
-      tag: "TECH",
+      desc: "Software, apps and technology businesses",
     },
     {
       icon: <FaHeartbeat />,
       title: "Healthcare",
-      desc: "Medical shops, clinics & services",
-      tag: "HEALTH",
+      desc: "Medical shops, clinics and healthcare",
     },
     {
       icon: <FaGraduationCap />,
       title: "Education",
-      desc: "Coaching, training & learning",
-      tag: "EDUCATION",
+      desc: "Coaching, training and learning centers",
     },
     {
       icon: <FaShoppingBag />,
       title: "E-Commerce",
-      desc: "Online stores & delivery businesses",
-      tag: "ONLINE",
+      desc: "Online stores and delivery businesses",
     },
     {
       icon: <FaCar />,
       title: "Automobile",
-      desc: "Garages, service & automobile",
-      tag: "AUTO",
+      desc: "Garages, service and automobile businesses",
     },
     {
       icon: <FaHotel />,
       title: "Hospitality",
-      desc: "Hotels, resorts & stays",
-      tag: "TRAVEL",
+      desc: "Hotels, resorts and accommodation",
     },
   ];
 
@@ -67,37 +59,30 @@ function BusinessCategories() {
     <section className="categories">
 
       <div className="categories-heading">
-
         <span className="categories-label">
           BUSINESS CATEGORIES
         </span>
 
         <h2>
-          Explore Your
-          <span> Business Possibilities</span>
+          Explore Popular
+          <span> Business Ideas</span>
         </h2>
 
         <p>
-          Choose from popular business sectors and use BizGuide AI to
-          understand the opportunities, investment, competition and
-          growth potential.
+          Discover different industries and explore business opportunities
+          with AI-powered insights from BizGuide.
         </p>
-
       </div>
 
       <div className="categories-grid">
 
-        {categories.map((item, index) => (
+        {categories.map((category, index) => (
+          <div className="category-card" key={category.title}>
 
-          <div
-            className="category-card"
-            key={index}
-          >
-
-            <div className="category-card-top">
+            <div className="category-top">
 
               <div className="category-icon">
-                {item.icon}
+                {category.icon}
               </div>
 
               <span className="category-number">
@@ -106,43 +91,17 @@ function BusinessCategories() {
 
             </div>
 
-            <div className="category-tag">
-              {item.tag}
-            </div>
+            <h3>{category.title}</h3>
 
-            <h3>
-              {item.title}
-            </h3>
+            <p>{category.desc}</p>
 
-            <p>
-              {item.desc}
-            </p>
-
-            <div className="category-link">
-
-              <span>
-                Explore
-              </span>
-
+            <div className="category-explore">
+              Explore
               <FaArrowRight />
-
             </div>
 
           </div>
-
         ))}
-
-      </div>
-
-      <div className="categories-footer">
-
-        <span>
-          Don't see your business type?
-        </span>
-
-        <strong>
-          BizGuide AI supports many more industries.
-        </strong>
 
       </div>
 
