@@ -8,12 +8,22 @@ import {
   FaTimesCircle,
   FaRobot,
   FaChartLine,
+  FaArrowRight,
 } from "react-icons/fa";
 
 function FinalVerdict({ report }) {
   if (!report?.finalVerdict) return null;
 
-  const { businessScore, decision, reason } = report.finalVerdict;
+  const {
+    businessScore = 0,
+    decision,
+    reason,
+  } = report.finalVerdict;
+
+  const score = Math.min(
+    100,
+    Math.max(0, Number(businessScore) || 0)
+  );
 
   const getDecisionClass = () => {
     if (decision === "GO-AHEAD") return "go";
@@ -22,11 +32,13 @@ function FinalVerdict({ report }) {
   };
 
   const getDecisionIcon = () => {
-    if (decision === "GO-AHEAD")
+    if (decision === "GO-AHEAD") {
       return <FaCheckCircle />;
+    }
 
-    if (decision === "PROCEED WITH CAUTION")
+    if (decision === "PROCEED WITH CAUTION") {
       return <FaExclamationTriangle />;
+    }
 
     return <FaTimesCircle />;
   };
@@ -34,64 +46,97 @@ function FinalVerdict({ report }) {
   return (
     <section className="verdict-section">
 
+      {/* ========================= */}
+      {/* FINAL VERDICT HERO */}
+      {/* ========================= */}
+
       <div className={`verdict-hero ${getDecisionClass()}`}>
 
-        <div className="score-wrapper">
-
-          <div className="score-circle">
-
-            <CircularProgressbar
-              value={businessScore}
-              text={`${businessScore}`}
-              styles={buildStyles({
-                pathColor: "#fff",
-                textColor: "#fff",
-                trailColor: "rgba(255,255,255,.2)",
-                textSize: "18px",
-              })}
-            />
-
-          </div>
-
-          <h3>Business Score</h3>
-
+        <div className="verdict-badge">
+          <FaRobot />
+          <span>AI FINAL VERDICT</span>
         </div>
 
-        <div className="verdict-info">
+        <div className="verdict-main">
 
-          <div className="decision">
+          {/* Score */}
+          <div className="score-wrapper">
 
-            {getDecisionIcon()}
+            <div className="score-circle">
 
-            <h2>{decision}</h2>
+              <CircularProgressbar
+                value={score}
+                text={`${score}`}
+                styles={buildStyles({
+                  pathColor: "#ffffff",
+                  textColor: "#ffffff",
+                  trailColor: "rgba(255,255,255,0.18)",
+                  textSize: "21px",
+                  strokeLinecap: "round",
+                })}
+              />
+
+            </div>
+
+            <div className="score-label">
+              <span>BUSINESS</span>
+              <strong>SCORE</strong>
+            </div>
 
           </div>
 
-          <p>
-            {reason}
-          </p>
+          {/* Decision */}
+          <div className="verdict-info">
+
+            <div className="decision">
+
+              <div className="decision-icon">
+                {getDecisionIcon()}
+              </div>
+
+              <div>
+                <span>RECOMMENDATION</span>
+                <h2>{decision}</h2>
+              </div>
+
+            </div>
+
+            <p>
+              {reason || "No final recommendation available."}
+            </p>
+
+          </div>
 
         </div>
 
       </div>
 
-      {/* Score Breakdown */}
+      {/* ========================= */}
+      {/* SCORE BREAKDOWN */}
+      {/* ========================= */}
 
       <div className="breakdown-card">
 
-        <h2>
+        <div className="section-heading">
 
-          <FaChartLine />
+          <div className="section-heading-icon">
+            <FaChartLine />
+          </div>
 
-          AI Score Breakdown
+          <div>
+            <span>SCORE ANALYTICS</span>
+            <h2>AI Score Breakdown</h2>
+          </div>
 
-        </h2>
+        </div>
 
         <div className="progress-item">
 
-          <span>Business Score</span>
+          <div>
+            <span>Overall Business Score</span>
+          </div>
 
-          <span>{businessScore}%</span>
+          <strong>{score}%</strong>
 
         </div>
 
@@ -99,38 +144,60 @@ function FinalVerdict({ report }) {
 
           <div
             className="progress-fill"
-            style={{ width: `${businessScore}%` }}
+            style={{ width: `${score}%` }}
           />
+
+        </div>
+
+        <div className="score-range">
+
+          <span>0 — Low Potential</span>
+
+          <span>100 — Excellent Potential</span>
 
         </div>
 
       </div>
 
-      {/* AI Summary */}
+      {/* ========================= */}
+      {/* AI SUMMARY */}
+      {/* ========================= */}
 
       <div className="ai-summary">
 
         <div className="summary-title">
 
-          <FaRobot />
+          <div className="summary-icon">
+            <FaRobot />
+          </div>
 
-          <h2>AI Final Recommendation</h2>
+          <div>
+            <span>FINAL AI INSIGHT</span>
+            <h2>AI Final Recommendation</h2>
+          </div>
 
         </div>
 
         <p>
-
-          After analyzing the market demand, competition,
-          financial projections, SWOT analysis, and business
-          risks, BizGuide AI concludes that:
-
+          After analyzing market demand, competition, financial
+          projections, SWOT factors, and business risks, BizGuide AI
+          has reached the following conclusion:
         </p>
 
         <blockquote>
-
-          "{reason}"
-
+          <span className="quote-mark">“</span>
+          <span>{reason || "No recommendation available."}</span>
         </blockquote>
+
+        <div className="verdict-footer">
+
+          <span>
+            Generated by BizGuide AI
+          </span>
+
+          <FaArrowRight />
+
+        </div>
 
       </div>
 

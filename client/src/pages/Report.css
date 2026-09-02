@@ -1,205 +1,440 @@
-/* =========================
-   REPORT PAGE
-========================= */
+/* ========================= */
+/* REPORT PAGE */
+/* ========================= */
 
 .report-page {
-  min-height: 100vh;
+    min-height: 100vh;
 
-  padding: 40px 30px 100px;
+    padding: 35px 30px 100px;
 
-  background:
-    radial-gradient(
-      circle at 10% 5%,
-      rgba(124, 58, 237, 0.07),
-      transparent 25%
-    ),
-    radial-gradient(
-      circle at 90% 15%,
-      rgba(79, 70, 229, 0.05),
-      transparent 25%
-    ),
-    #f7f7fb;
+    background:
+        radial-gradient(
+            circle at 8% 3%,
+            rgba(124, 58, 237, 0.10),
+            transparent 24%
+        ),
+        radial-gradient(
+            circle at 92% 8%,
+            rgba(139, 92, 246, 0.08),
+            transparent 25%
+        ),
+        linear-gradient(
+            180deg,
+            #f8f7fc 0%,
+            #f5f3fa 100%
+        );
 }
 
 
-/* =========================
-   DOWNLOAD AREA
-========================= */
+/* ========================= */
+/* TOOLBAR */
+/* ========================= */
 
-.download-container {
-  max-width: 1250px;
+.report-toolbar {
+    width: 95%;
+    max-width: 1250px;
 
-  margin: 0 auto 25px;
+    margin: 0 auto 22px;
 
-  display: flex;
+    display: flex;
 
-  justify-content: flex-end;
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 20px;
 }
+
+.report-toolbar-info {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 3px;
+}
+
+.report-toolbar-info span {
+    color: #8b5cf6;
+
+    font-size: 10px;
+
+    font-weight: 800;
+
+    letter-spacing: 1.5px;
+}
+
+.report-toolbar-info strong {
+    color: #312e81;
+
+    font-size: 15px;
+
+    font-weight: 700;
+}
+
+
+/* ========================= */
+/* DOWNLOAD BUTTON */
+/* ========================= */
 
 .download-btn {
-  display: inline-flex;
+    display: inline-flex;
 
-  align-items: center;
+    align-items: center;
 
-  gap: 9px;
+    justify-content: center;
 
-  padding: 11px 18px;
+    gap: 9px;
 
-  border: 1px solid #ddd6fe;
+    padding: 11px 18px;
 
-  border-radius: 10px;
+    border: 1px solid #ddd6fe;
 
-  color: #5b3fd6;
+    border-radius: 11px;
 
-  background: #ffffff;
+    background: #ffffff;
 
-  font-family: inherit;
+    color: #6d28d9;
 
-  font-size: 13px;
+    font-family: inherit;
 
-  font-weight: 700;
+    font-size: 13px;
 
-  cursor: pointer;
+    font-weight: 700;
 
-  box-shadow:
-    0 5px 15px rgba(79, 70, 229, 0.07);
+    cursor: pointer;
 
-  transition: all 0.25s ease;
+    box-shadow:
+        0 6px 18px rgba(76, 29, 149, 0.07);
+
+    transition:
+        transform 0.25s ease,
+        background 0.25s ease,
+        color 0.25s ease,
+        box-shadow 0.25s ease;
 }
 
 .download-btn:hover {
-  color: white;
+    transform: translateY(-2px);
 
-  border-color: #6d28d9;
+    color: #ffffff;
 
-  background:
-    linear-gradient(
-      135deg,
-      #4f46e5,
-      #7c3aed
-    );
+    border-color: #7c3aed;
 
-  transform: translateY(-2px);
+    background:
+        linear-gradient(
+            135deg,
+            #6366f1,
+            #7c3aed
+        );
 
-  box-shadow:
-    0 10px 25px rgba(79, 70, 229, 0.22);
+    box-shadow:
+        0 12px 28px rgba(124, 58, 237, 0.22);
+}
+
+.download-btn:active {
+    transform: translateY(0);
+}
+
+.download-icon {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 20px;
+    height: 20px;
+
+    border-radius: 6px;
+
+    background: #ede9fe;
+
+    color: #7c3aed;
+
+    font-size: 16px;
+
+    line-height: 1;
+}
+
+.download-btn:hover .download-icon {
+    background: rgba(255,255,255,0.18);
+
+    color: #ffffff;
 }
 
 
-/* =========================
-   REPORT CONTENT
-========================= */
+/* ========================= */
+/* REPORT DOCUMENT */
+/* ========================= */
 
 #report-content {
-  width: 100%;
+    width: 95%;
 
-  max-width: 1250px;
+    max-width: 1250px;
 
-  margin: auto;
+    margin: 0 auto;
 
-  padding: 35px;
+    padding: 35px 0 55px;
 
-  border: 1px solid #ebe9f4;
+    background: #ffffff;
 
-  border-radius: 26px;
+    border: 1px solid #e9e5f5;
 
-  background: #ffffff;
+    border-radius: 26px;
 
-  box-shadow:
-    0 20px 60px rgba(31, 35, 60, 0.07);
+    box-shadow:
+        0 20px 65px rgba(49, 46, 129, 0.08);
+
+    overflow: hidden;
 }
 
 
-/* =========================
-   REPORT SECTIONS
-========================= */
+/* ========================= */
+/* DOCUMENT HEADER */
+/* ========================= */
+
+.report-document-header {
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+
+    padding: 0 5% 5px;
+
+    color: #8b5cf6;
+
+    font-size: 10px;
+
+    font-weight: 800;
+
+    letter-spacing: 1.5px;
+}
+
+.report-document-header span {
+    white-space: nowrap;
+}
+
+.document-line {
+    flex: 1;
+
+    height: 1px;
+
+    background: #e9e5f5;
+}
+
+.report-document-header small {
+    color: #a78bfa;
+
+    font-size: 9px;
+
+    letter-spacing: 1px;
+
+    white-space: nowrap;
+}
+
+
+/* ========================= */
+/* SECTION FLOW */
+/* ========================= */
 
 #report-content > * {
-  position: relative;
+    position: relative;
 }
-
-
-/* Add spacing between report components */
 
 #report-content > * + * {
-  margin-top: 25px;
+    margin-top: 0;
 }
 
 
-/* =========================
-   PRINT / PDF
-========================= */
+/*
+   Each individual report component
+   already controls its own width,
+   spacing and visual design.
+*/
+
+#report-content > section {
+    position: relative;
+}
+
+
+/* ========================= */
+/* REPORT END */
+/* ========================= */
+
+.report-end {
+    width: 90%;
+
+    margin: 50px auto 0;
+
+    padding: 28px;
+
+    text-align: center;
+
+    border-top: 1px solid #e9e5f5;
+}
+
+.report-end-icon {
+    width: 42px;
+    height: 42px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    margin: 0 auto 12px;
+
+    border-radius: 13px;
+
+    background: #ede9fe;
+
+    color: #7c3aed;
+
+    font-size: 20px;
+}
+
+.report-end h3 {
+    margin: 0 0 6px;
+
+    color: #312e81;
+
+    font-size: 16px;
+
+    font-weight: 700;
+}
+
+.report-end p {
+    margin: 0;
+
+    color: #94a3b8;
+
+    font-size: 12px;
+
+    line-height: 1.6;
+}
+
+
+/* ========================= */
+/* PRINT / PDF */
+/* ========================= */
 
 @media print {
 
-  .download-container {
-    display: none;
-  }
+    .report-toolbar {
+        display: none;
+    }
 
-  .report-page {
-    padding: 0;
+    .report-page {
+        padding: 0;
 
-    background: white;
-  }
+        background: #ffffff;
+    }
 
-  #report-content {
-    max-width: none;
+    #report-content {
+        width: 100%;
 
-    padding: 20px;
+        max-width: none;
 
-    border: none;
+        padding: 20px 0;
 
-    border-radius: 0;
+        border: none;
 
-    box-shadow: none;
-  }
+        border-radius: 0;
+
+        box-shadow: none;
+    }
+
+    .report-document-header {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .report-end {
+        margin-top: 30px;
+    }
 
 }
 
 
-/* =========================
-   TABLET
-========================= */
+/* ========================= */
+/* TABLET */
+/* ========================= */
 
 @media (max-width: 900px) {
 
-  .report-page {
-    padding: 30px 20px 70px;
-  }
+    .report-page {
+        padding: 30px 20px 70px;
+    }
 
-  #report-content {
-    padding: 25px;
-  }
+    .report-toolbar {
+        width: 100%;
+    }
+
+    #report-content {
+        width: 100%;
+
+        padding-top: 28px;
+
+        border-radius: 22px;
+    }
 
 }
 
 
-/* =========================
-   MOBILE
-========================= */
+/* ========================= */
+/* MOBILE */
+/* ========================= */
 
 @media (max-width: 600px) {
 
-  .report-page {
-    padding: 20px 12px 60px;
-  }
+    .report-page {
+        padding: 20px 12px 60px;
+    }
 
-  .download-container {
-    justify-content: center;
+    .report-toolbar {
+        width: 100%;
 
-    margin-bottom: 18px;
-  }
+        flex-direction: column;
 
-  .download-btn {
-    width: 100%;
+        align-items: stretch;
 
-    justify-content: center;
-  }
+        gap: 13px;
 
-  #report-content {
-    padding: 18px;
+        margin-bottom: 18px;
+    }
 
-    border-radius: 18px;
-  }
+    .report-toolbar-info {
+        text-align: center;
+    }
+
+    .download-btn {
+        width: 100%;
+    }
+
+    #report-content {
+        width: 100%;
+
+        padding-top: 22px;
+
+        border-radius: 18px;
+    }
+
+    .report-document-header {
+        gap: 8px;
+
+        padding: 0 18px 3px;
+
+        font-size: 8px;
+    }
+
+    .report-document-header small {
+        font-size: 7px;
+    }
+
+    .report-end {
+        width: 90%;
+
+        padding: 22px 10px;
+    }
 
 }

@@ -3,10 +3,10 @@ import {
   FaBullhorn,
   FaCogs,
   FaWallet,
+  FaLightbulb,
 } from "react-icons/fa";
 
 function Recommendations({ report }) {
-
   if (!report?.recommendations) return null;
 
   const {
@@ -16,87 +16,106 @@ function Recommendations({ report }) {
   } = report.recommendations;
 
   const renderList = (items) => {
-
-    if (!items.length)
+    if (!items.length) {
       return <li>No recommendations available.</li>;
+    }
 
     return items.map((item, index) => (
-      <li key={index}>{item}</li>
-    ));
+      <li key={index}>
+        <span className="recommend-number">
+          {String(index + 1).padStart(2, "0")}
+        </span>
 
+        <span className="recommend-text">
+          {item}
+        </span>
+      </li>
+    ));
   };
 
-  return (
+  const recommendationItems = [
+    {
+      icon: <FaBullhorn />,
+      label: "GROWTH",
+      title: "Marketing",
+      items: marketing,
+      className: "marketing",
+    },
+    {
+      icon: <FaCogs />,
+      label: "EFFICIENCY",
+      title: "Operations",
+      items: operations,
+      className: "operations",
+    },
+    {
+      icon: <FaWallet />,
+      label: "PROFITABILITY",
+      title: "Financial",
+      items: financial,
+      className: "financial",
+    },
+  ];
 
+  return (
     <section className="recommend-section">
 
+      {/* Header */}
       <div className="recommend-header">
 
-        <h2>Business Recommendations</h2>
+        <div className="recommend-title">
 
-        <p>
-          AI-generated recommendations to improve business growth,
-          operational efficiency, and financial stability.
-        </p>
+          <div className="recommend-header-icon">
+            <FaLightbulb />
+          </div>
+
+          <div>
+            <span>AI STRATEGY</span>
+
+            <h2>Business Recommendations</h2>
+
+            <p>
+              AI-generated strategies designed to improve growth,
+              operational efficiency, and financial performance.
+            </p>
+          </div>
+
+        </div>
 
       </div>
 
+      {/* Recommendation Cards */}
       <div className="recommend-grid">
 
-        <div className="recommend-card marketing">
+        {recommendationItems.map((item, index) => (
+          <div
+            className={`recommend-card ${item.className}`}
+            key={index}
+          >
 
-          <div className="recommend-title">
+            <div className="recommend-card-top">
 
-            <FaBullhorn />
+              <div className="recommend-icon">
+                {item.icon}
+              </div>
 
-            <h3>Marketing</h3>
+              <span>{item.label}</span>
 
-          </div>
+            </div>
 
-          <ul>
-            {renderList(marketing)}
-          </ul>
+            <h3>{item.title}</h3>
 
-        </div>
-
-        <div className="recommend-card operations">
-
-          <div className="recommend-title">
-
-            <FaCogs />
-
-            <h3>Operations</h3>
+            <ul>
+              {renderList(item.items)}
+            </ul>
 
           </div>
-
-          <ul>
-            {renderList(operations)}
-          </ul>
-
-        </div>
-
-        <div className="recommend-card financial">
-
-          <div className="recommend-title">
-
-            <FaWallet />
-
-            <h3>Financial</h3>
-
-          </div>
-
-          <ul>
-            {renderList(financial)}
-          </ul>
-
-        </div>
+        ))}
 
       </div>
 
     </section>
-
   );
-
 }
 
 export default Recommendations;
