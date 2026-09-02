@@ -87,7 +87,7 @@ function BusinessDashboard({ report }) {
               styles={buildStyles({
                 pathColor: "#ffffff",
                 trailColor: "rgba(255,255,255,.25)",
-                textColor: "#ffffff",
+                textColor: "#312e81",
                 textSize: "18px",
               })}
             />

@@ -76,7 +76,7 @@ function FinalVerdict({ report }) {
                 styles={buildStyles({
                   pathColor: "#ffffff",
                   trailColor: "rgba(255,255,255,0.18)",
-                  textColor: "transparent",
+                  textColor: "#312e81",
                   strokeLinecap: "round",
                 })}
               />
