@@ -31,8 +31,9 @@ function FinalVerdict({ report }) {
   const getDecisionClass = () => {
     if (decision === "GO-AHEAD") return "go";
 
-    if (decision === "PROCEED WITH CAUTION")
+    if (decision === "PROCEED WITH CAUTION") {
       return "caution";
+    }
 
     return "reject";
   };
@@ -65,7 +66,9 @@ function FinalVerdict({ report }) {
 
         <div className="verdict-main">
 
-          {/* SCORE */}
+          {/* ========================= */}
+          {/* BUSINESS SCORE */}
+          {/* ========================= */}
 
           <div className="score-wrapper">
 
@@ -73,18 +76,15 @@ function FinalVerdict({ report }) {
 
               <CircularProgressbar
                 value={score}
+                text={`${score}`}
                 styles={buildStyles({
                   pathColor: "#ffffff",
                   trailColor: "rgba(255,255,255,0.18)",
-                  textColor: "#312e81",
+                  textColor: "#ffffff",
+                  textSize: "18px",
                   strokeLinecap: "round",
                 })}
               />
-
-              {/* Explicit score text */}
-              <div className="final-score-value">
-                {score}
-              </div>
 
             </div>
 
@@ -95,7 +95,9 @@ function FinalVerdict({ report }) {
 
           </div>
 
+          {/* ========================= */}
           {/* DECISION */}
+          {/* ========================= */}
 
           <div className="verdict-info">
 
@@ -106,11 +108,13 @@ function FinalVerdict({ report }) {
               </div>
 
               <div>
+
                 <span>RECOMMENDATION</span>
 
                 <h2>
                   {decision}
                 </h2>
+
               </div>
 
             </div>
@@ -139,11 +143,13 @@ function FinalVerdict({ report }) {
           </div>
 
           <div>
+
             <span>SCORE ANALYTICS</span>
 
             <h2>
               AI Score Breakdown
             </h2>
+
           </div>
 
         </div>

@@ -667,6 +667,16 @@
     }
 
 }
-.final-score-value {
-    color: #312e81;
+.final-score-circle {
+    width: 165px;
+    height: 165px;
+    flex-shrink: 0;
+}
+@media (max-width: 600px) {
+
+    .final-score-circle {
+        width: 130px;
+        height: 130px;
+    }
+
 }
