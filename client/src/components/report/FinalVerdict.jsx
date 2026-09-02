@@ -76,15 +76,17 @@ function FinalVerdict({ report }) {
 
               <CircularProgressbar
                 value={score}
-                text={`${score}`}
+                text=""
                 styles={buildStyles({
                   pathColor: "#ffffff",
                   trailColor: "rgba(255,255,255,0.18)",
-                  textColor: "#ffffff",
-                  textSize: "18px",
                   strokeLinecap: "round",
                 })}
               />
+
+              <div className="final-score-value">
+                {score}
+              </div>
 
             </div>
 
@@ -94,6 +96,7 @@ function FinalVerdict({ report }) {
             </div>
 
           </div>
+
 
           {/* ========================= */}
           {/* DECISION */}

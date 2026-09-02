@@ -8,6 +8,7 @@
     margin: 55px auto;
 }
 
+
 /* ========================= */
 /* HERO */
 /* ========================= */
@@ -29,6 +30,7 @@
         0 20px 50px rgba(76, 29, 149, 0.18);
 }
 
+
 /* Decorative circles */
 
 .verdict-hero::before {
@@ -44,7 +46,7 @@
 
     border-radius: 50%;
 
-    background: rgba(255,255,255,0.08);
+    background: rgba(255, 255, 255, 0.08);
 }
 
 .verdict-hero::after {
@@ -60,37 +62,44 @@
 
     border-radius: 50%;
 
-    background: rgba(255,255,255,0.06);
+    background: rgba(255, 255, 255, 0.06);
 }
 
-/* Decision gradients */
+
+/* ========================= */
+/* DECISION GRADIENTS */
+/* ========================= */
 
 .verdict-hero.go {
-    background: linear-gradient(
-        135deg,
-        #6d28d9,
-        #7c3aed,
-        #9333ea
-    );
+    background:
+        linear-gradient(
+            135deg,
+            #6d28d9,
+            #7c3aed,
+            #9333ea
+        );
 }
 
 .verdict-hero.caution {
-    background: linear-gradient(
-        135deg,
-        #6d28d9,
-        #8b5cf6,
-        #a855f7
-    );
+    background:
+        linear-gradient(
+            135deg,
+            #6d28d9,
+            #8b5cf6,
+            #a855f7
+        );
 }
 
 .verdict-hero.reject {
-    background: linear-gradient(
-        135deg,
-        #5b21b6,
-        #7c3aed,
-        #be123c
-    );
+    background:
+        linear-gradient(
+            135deg,
+            #5b21b6,
+            #7c3aed,
+            #be123c
+        );
 }
+
 
 /* ========================= */
 /* BADGE */
@@ -111,13 +120,14 @@
 
     margin-bottom: 28px;
 
-    border: 1px solid rgba(255,255,255,0.2);
+    border: 1px solid rgba(255, 255, 255, 0.2);
 
     border-radius: 30px;
 
-    background: rgba(255,255,255,0.11);
+    background: rgba(255, 255, 255, 0.11);
 
     font-size: 10px;
+
     font-weight: 800;
 
     letter-spacing: 1.5px;
@@ -126,6 +136,7 @@
 .verdict-badge svg {
     font-size: 13px;
 }
+
 
 /* ========================= */
 /* HERO MAIN */
@@ -143,8 +154,9 @@
     gap: 55px;
 }
 
+
 /* ========================= */
-/* SCORE */
+/* SCORE WRAPPER */
 /* ========================= */
 
 .score-wrapper {
@@ -157,13 +169,60 @@
     flex-shrink: 0;
 }
 
-.score-circle {
+
+/* ========================= */
+/* FINAL SCORE CIRCLE */
+/* ========================= */
+
+.final-score-circle {
+    position: relative;
+
     width: 165px;
     height: 165px;
 
-    filter:
-        drop-shadow(0 8px 18px rgba(0,0,0,0.12));
+    flex-shrink: 0;
 }
+
+
+/* CircularProgressbar */
+
+.final-score-circle .CircularProgressbar {
+    position: absolute;
+
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+}
+
+
+/* Score number */
+
+.final-score-value {
+    position: absolute;
+
+    inset: 0;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    color: #ffffff !important;
+
+    font-size: 34px;
+
+    font-weight: 800;
+
+    line-height: 1;
+
+    z-index: 20;
+
+    pointer-events: none;
+}
+
+
+/* Score label */
 
 .score-label {
     display: flex;
@@ -174,7 +233,9 @@
 
     margin-top: 15px;
 
-    font-size: 11px;
+    color: #ffffff;
+
+    font-size: 10px;
 
     letter-spacing: 1.5px;
 }
@@ -187,8 +248,9 @@
     font-size: 13px;
 }
 
+
 /* ========================= */
-/* DECISION */
+/* VERDICT INFORMATION */
 /* ========================= */
 
 .verdict-info {
@@ -206,19 +268,19 @@
 }
 
 .decision-icon {
+    width: 52px;
+    height: 52px;
+
     display: flex;
 
     align-items: center;
     justify-content: center;
 
-    width: 52px;
-    height: 52px;
-
     flex-shrink: 0;
 
     border-radius: 15px;
 
-    background: rgba(255,255,255,0.14);
+    background: rgba(255, 255, 255, 0.14);
 
     font-size: 25px;
 }
@@ -229,6 +291,7 @@
     margin-bottom: 4px;
 
     font-size: 10px;
+
     font-weight: 800;
 
     letter-spacing: 1.5px;
@@ -253,15 +316,16 @@
 
     margin: 0;
 
-    color: rgba(255,255,255,0.9);
+    color: rgba(255, 255, 255, 0.9);
 
     font-size: 17px;
 
     line-height: 1.8;
 }
 
+
 /* ========================= */
-/* BREAKDOWN CARD */
+/* SCORE BREAKDOWN */
 /* ========================= */
 
 .breakdown-card {
@@ -278,6 +342,7 @@
     box-shadow:
         0 10px 28px rgba(76, 29, 149, 0.07);
 }
+
 
 /* ========================= */
 /* SECTION HEADING */
@@ -319,6 +384,7 @@
     color: #8b5cf6;
 
     font-size: 10px;
+
     font-weight: 800;
 
     letter-spacing: 1.4px;
@@ -334,6 +400,7 @@
     font-weight: 700;
 }
 
+
 /* ========================= */
 /* PROGRESS */
 /* ========================= */
@@ -341,9 +408,9 @@
 .progress-item {
     display: flex;
 
-    justify-content: space-between;
-
     align-items: center;
+
+    justify-content: space-between;
 
     margin-bottom: 11px;
 
@@ -377,11 +444,12 @@
 
     border-radius: 30px;
 
-    background: linear-gradient(
-        90deg,
-        #7c3aed,
-        #a855f7
-    );
+    background:
+        linear-gradient(
+            90deg,
+            #7c3aed,
+            #a855f7
+        );
 
     transition: width 0.8s ease;
 }
@@ -398,6 +466,7 @@
     font-size: 11px;
 }
 
+
 /* ========================= */
 /* AI SUMMARY */
 /* ========================= */
@@ -405,11 +474,12 @@
 .ai-summary {
     padding: 32px;
 
-    background: linear-gradient(
-        135deg,
-        #faf9ff,
-        #f5f3ff
-    );
+    background:
+        linear-gradient(
+            135deg,
+            #faf9ff,
+            #f5f3ff
+        );
 
     border: 1px solid #e9e5f5;
 
@@ -420,6 +490,7 @@
     box-shadow:
         0 10px 28px rgba(76, 29, 149, 0.06);
 }
+
 
 /* ========================= */
 /* SUMMARY TITLE */
@@ -463,6 +534,7 @@
     color: #8b5cf6;
 
     font-size: 10px;
+
     font-weight: 800;
 
     letter-spacing: 1.4px;
@@ -478,6 +550,7 @@
     font-weight: 700;
 }
 
+
 /* ========================= */
 /* SUMMARY TEXT */
 /* ========================= */
@@ -491,6 +564,7 @@
 
     line-height: 1.8;
 }
+
 
 /* ========================= */
 /* QUOTE */
@@ -537,6 +611,7 @@
     font-style: normal;
 }
 
+
 /* ========================= */
 /* FOOTER */
 /* ========================= */
@@ -563,8 +638,9 @@
     font-size: 11px;
 }
 
+
 /* ========================= */
-/* RESPONSIVE */
+/* TABLET */
 /* ========================= */
 
 @media (max-width: 992px) {
@@ -591,6 +667,11 @@
 
 }
 
+
+/* ========================= */
+/* MOBILE */
+/* ========================= */
+
 @media (max-width: 600px) {
 
     .verdict-section {
@@ -611,9 +692,13 @@
         margin-bottom: 23px;
     }
 
-    .score-circle {
+    .final-score-circle {
         width: 130px;
         height: 130px;
+    }
+
+    .final-score-value {
+        font-size: 28px;
     }
 
     .decision {
@@ -664,19 +749,6 @@
 
     .score-range {
         font-size: 9px;
-    }
-
-}
-.final-score-circle {
-    width: 165px;
-    height: 165px;
-    flex-shrink: 0;
-}
-@media (max-width: 600px) {
-
-    .final-score-circle {
-        width: 130px;
-        height: 130px;
     }
 
 }
