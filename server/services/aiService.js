@@ -31,14 +31,16 @@ IMPORTANT RULES:
 
 1. Return ONLY valid JSON.
 2. Do NOT use Markdown.
-3. Do NOT wrap the JSON inside \`\`\`.
-4. Do NOT include explanations.
+3. Do NOT wrap the JSON inside code fences.
+4. Do NOT include explanations outside the JSON.
 5. Every field must contain meaningful business information.
 6. Give practical and realistic business suggestions.
 7. Estimate financial values based on the given budget.
-8. SWOT analysis should contain at least 3 points in each category.
-9. Recommendations should be practical.
+8. SWOT analysis must contain at least 3 points in each category.
+9. Recommendations must be practical.
 10. Business score must be a NUMBER between 0 and 100.
+11. Do not leave fields empty.
+12. Keep all field names exactly as provided below.
 
 Return JSON in EXACTLY this format:
 
@@ -115,43 +117,51 @@ Return JSON in EXACTLY this format:
 }
 `;
 
+        console.log("========== STARTING GEMINI ANALYSIS ==========");
+
         const response = await ai.models.generateContent({
             model: "gemini-3.5-flash",
             contents: prompt,
         });
 
-        console.log("========== GEMINI RESPONSE ==========");
-        console.dir(response, { depth: null });
+        // Official SDK response text
+        let aiText = response.text;
 
-        let aiText = "";
-
-        if (
-            response.candidates &&
-            response.candidates.length > 0 &&
-            response.candidates[0].content &&
-            response.candidates[0].content.parts &&
-            response.candidates[0].content.parts.length > 0
-        ) {
-            aiText = response.candidates[0].content.parts[0].text;
-        } else {
-            throw new Error("Unable to extract AI response.");
+        if (!aiText) {
+            throw new Error("Gemini returned an empty response.");
         }
 
+        console.log("========== GEMINI TEXT RECEIVED ==========");
+        console.log(aiText);
+
+        // Remove possible Markdown code fences
         aiText = aiText
-            .replace(/```json/g, "")
+            .replace(/```json/gi, "")
             .replace(/```/g, "")
             .trim();
 
-        console.log("\n========== AI TEXT ==========");
-        console.log(aiText);
+        // Find JSON object if Gemini adds accidental text
+        const startIndex = aiText.indexOf("{");
+        const endIndex = aiText.lastIndexOf("}");
+
+        if (startIndex === -1 || endIndex === -1) {
+            throw new Error("Gemini response does not contain valid JSON.");
+        }
+
+        aiText = aiText.substring(
+            startIndex,
+            endIndex + 1
+        );
 
         const report = JSON.parse(aiText);
+
+        console.log("========== REPORT PARSED SUCCESSFULLY ==========");
 
         return report;
 
     } catch (error) {
 
-        console.error("\n========== GEMINI ERROR ==========");
+        console.error("========== GEMINI ERROR ==========");
         console.error(error);
 
         return {

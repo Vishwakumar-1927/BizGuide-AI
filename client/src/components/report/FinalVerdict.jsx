@@ -1,5 +1,8 @@
 import "./FinalVerdict.css";
-import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
+import {
+  CircularProgressbar,
+  buildStyles,
+} from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 
 import {
@@ -16,8 +19,8 @@ function FinalVerdict({ report }) {
 
   const {
     businessScore = 0,
-    decision,
-    reason,
+    decision = "Not Available",
+    reason = "No recommendation available.",
   } = report.finalVerdict;
 
   const score = Math.min(
@@ -27,7 +30,10 @@ function FinalVerdict({ report }) {
 
   const getDecisionClass = () => {
     if (decision === "GO-AHEAD") return "go";
-    if (decision === "PROCEED WITH CAUTION") return "caution";
+
+    if (decision === "PROCEED WITH CAUTION")
+      return "caution";
+
     return "reject";
   };
 
@@ -59,22 +65,26 @@ function FinalVerdict({ report }) {
 
         <div className="verdict-main">
 
-          {/* Score */}
+          {/* SCORE */}
+
           <div className="score-wrapper">
 
-            <div className="score-circle">
+            <div className="final-score-circle">
 
               <CircularProgressbar
                 value={score}
-                text={`${score}`}
                 styles={buildStyles({
                   pathColor: "#ffffff",
-                  textColor: "#ffffff",
                   trailColor: "rgba(255,255,255,0.18)",
-                  textSize: "21px",
+                  textColor: "transparent",
                   strokeLinecap: "round",
                 })}
               />
+
+              {/* Explicit score text */}
+              <div className="final-score-value">
+                {score}
+              </div>
 
             </div>
 
@@ -85,7 +95,8 @@ function FinalVerdict({ report }) {
 
           </div>
 
-          {/* Decision */}
+          {/* DECISION */}
+
           <div className="verdict-info">
 
             <div className="decision">
@@ -96,13 +107,16 @@ function FinalVerdict({ report }) {
 
               <div>
                 <span>RECOMMENDATION</span>
-                <h2>{decision}</h2>
+
+                <h2>
+                  {decision}
+                </h2>
               </div>
 
             </div>
 
             <p>
-              {reason || "No final recommendation available."}
+              {reason}
             </p>
 
           </div>
@@ -110,6 +124,7 @@ function FinalVerdict({ report }) {
         </div>
 
       </div>
+
 
       {/* ========================= */}
       {/* SCORE BREAKDOWN */}
@@ -125,39 +140,54 @@ function FinalVerdict({ report }) {
 
           <div>
             <span>SCORE ANALYTICS</span>
-            <h2>AI Score Breakdown</h2>
+
+            <h2>
+              AI Score Breakdown
+            </h2>
           </div>
 
         </div>
+
 
         <div className="progress-item">
 
-          <div>
-            <span>Overall Business Score</span>
-          </div>
+          <span>
+            Overall Business Score
+          </span>
 
-          <strong>{score}%</strong>
+          <strong>
+            {score}%
+          </strong>
 
         </div>
+
 
         <div className="progress-bar">
 
           <div
             className="progress-fill"
-            style={{ width: `${score}%` }}
+            style={{
+              width: `${score}%`,
+            }}
           />
 
         </div>
 
+
         <div className="score-range">
 
-          <span>0 — Low Potential</span>
+          <span>
+            0 — Low Potential
+          </span>
 
-          <span>100 — Excellent Potential</span>
+          <span>
+            100 — Excellent Potential
+          </span>
 
         </div>
 
       </div>
+
 
       {/* ========================= */}
       {/* AI SUMMARY */}
@@ -172,22 +202,40 @@ function FinalVerdict({ report }) {
           </div>
 
           <div>
-            <span>FINAL AI INSIGHT</span>
-            <h2>AI Final Recommendation</h2>
+
+            <span>
+              FINAL AI INSIGHT
+            </span>
+
+            <h2>
+              AI Final Recommendation
+            </h2>
+
           </div>
 
         </div>
 
+
         <p>
-          After analyzing market demand, competition, financial
-          projections, SWOT factors, and business risks, BizGuide AI
-          has reached the following conclusion:
+          After analyzing market demand, competition,
+          financial projections, SWOT factors, and
+          business risks, BizGuide AI has reached
+          the following conclusion:
         </p>
 
+
         <blockquote>
-          <span className="quote-mark">“</span>
-          <span>{reason || "No recommendation available."}</span>
+
+          <span className="quote-mark">
+            “
+          </span>
+
+          <span>
+            {reason}
+          </span>
+
         </blockquote>
+
 
         <div className="verdict-footer">
 
