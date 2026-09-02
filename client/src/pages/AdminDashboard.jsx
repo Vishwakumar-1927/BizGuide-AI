@@ -1,5 +1,13 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import {
+  FiUsers,
+  FiFileText,
+  FiCpu,
+  FiArrowRight,
+  FiShield,
+  FiActivity,
+} from "react-icons/fi";
 import "./AdminDashboard.css";
 
 function AdminDashboard() {
@@ -16,10 +24,6 @@ function AdminDashboard() {
   useEffect(() => {
     fetchDashboard();
   }, []);
-
-  // =============================
-  // Fetch Dashboard
-  // =============================
 
   const fetchDashboard = async () => {
     try {
@@ -46,7 +50,6 @@ function AdminDashboard() {
         "https://bizguide-ai-backend.onrender.com/api/admin/dashboard",
         {
           method: "GET",
-
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -74,29 +77,21 @@ function AdminDashboard() {
       if (!data.success) {
         alert(
           data.message ||
-          "Failed to load dashboard."
+            "Failed to load dashboard."
         );
-
         return;
       }
 
       setStats(data.stats);
-
     } catch (error) {
-
       console.error(
         "Admin Dashboard Error:",
         error
       );
 
-      alert(
-        "Unable to connect to server."
-      );
-
+      alert("Unable to connect to server.");
     } finally {
-
       setLoading(false);
-
     }
   };
 
@@ -107,11 +102,17 @@ function AdminDashboard() {
   if (loading) {
     return (
       <div className="admin-loading">
+        <div className="admin-loader">
+          <div className="loader-ring"></div>
 
-        <h2>
-          Loading Admin Dashboard...
-        </h2>
+          <h2>
+            Loading Admin Dashboard
+          </h2>
 
+          <p>
+            Preparing your administration panel...
+          </p>
+        </div>
       </div>
     );
   }
@@ -124,16 +125,17 @@ function AdminDashboard() {
     <div className="admin-page">
 
       {/* ============================= */}
-      {/* Header */}
+      {/* Hero */}
       {/* ============================= */}
 
-      <div className="admin-header">
+      <section className="admin-hero">
 
-        <div>
+        <div className="hero-content">
 
-          <span className="admin-badge">
+          <div className="admin-badge">
+            <FiShield />
             ADMIN PANEL
-          </span>
+          </div>
 
           <h1>
             Admin Dashboard
@@ -141,39 +143,50 @@ function AdminDashboard() {
 
           <p>
             Manage BizGuide AI users, reports
-            and business analysis activity.
+            and business analysis activity
+            from one centralized dashboard.
           </p>
 
         </div>
 
-      </div>
+        <div className="hero-decoration">
+          <FiActivity />
+        </div>
+
+      </section>
 
 
       {/* ============================= */}
       {/* Statistics */}
       {/* ============================= */}
 
-      <div className="admin-stats">
+      <section className="admin-stats">
 
         {/* Total Users */}
 
         <div className="admin-stat-card">
 
-          <div className="stat-icon">
-            👥
+          <div className="stat-icon users-icon">
+            <FiUsers />
           </div>
 
-          <div>
+          <div className="stat-content">
+
+            <span>
+              TOTAL USERS
+            </span>
 
             <h2>
               {stats.totalUsers}
             </h2>
 
             <p>
-              Total Users
+              Registered users
             </p>
 
           </div>
+
+          <div className="stat-line"></div>
 
         </div>
 
@@ -182,21 +195,27 @@ function AdminDashboard() {
 
         <div className="admin-stat-card">
 
-          <div className="stat-icon">
-            📄
+          <div className="stat-icon reports-icon">
+            <FiFileText />
           </div>
 
-          <div>
+          <div className="stat-content">
+
+            <span>
+              TOTAL REPORTS
+            </span>
 
             <h2>
               {stats.totalReports}
             </h2>
 
             <p>
-              Total Reports
+              Business reports
             </p>
 
           </div>
+
+          <div className="stat-line"></div>
 
         </div>
 
@@ -205,43 +224,63 @@ function AdminDashboard() {
 
         <div className="admin-stat-card">
 
-          <div className="stat-icon">
-            🤖
+          <div className="stat-icon analysis-icon">
+            <FiCpu />
           </div>
 
-          <div>
+          <div className="stat-content">
+
+            <span>
+              AI ANALYSES
+            </span>
 
             <h2>
               {stats.totalAnalyses}
             </h2>
 
             <p>
-              Total AI Analyses
+              AI business analyses
             </p>
 
           </div>
 
+          <div className="stat-line"></div>
+
         </div>
 
-      </div>
+      </section>
 
 
       {/* ============================= */}
-      {/* Admin Actions */}
+      {/* Administration */}
       {/* ============================= */}
 
-      <div className="admin-actions">
+      <section className="admin-actions">
 
-        <h2>
-          Administration
-        </h2>
+        <div className="section-heading">
+
+          <div>
+
+            <span className="section-kicker">
+              MANAGEMENT
+            </span>
+
+            <h2>
+              Administration
+            </h2>
+
+          </div>
+
+          <p>
+            Manage your BizGuide AI platform
+          </p>
+
+        </div>
 
 
         <div className="admin-action-grid">
 
-          {/* ============================= */}
           {/* User Management */}
-          {/* ============================= */}
 
           <button
             className="admin-action-card"
@@ -250,11 +289,15 @@ function AdminDashboard() {
             }
           >
 
-            <span>
-              👥
-            </span>
+            <div className="action-icon">
+              <FiUsers />
+            </div>
 
-            <div>
+            <div className="action-content">
+
+              <span className="action-number">
+                01
+              </span>
 
               <h3>
                 User Management
@@ -262,17 +305,20 @@ function AdminDashboard() {
 
               <p>
                 View and manage registered
-                users.
+                BizGuide AI users.
               </p>
+
+              <div className="action-link">
+                Manage Users
+                <FiArrowRight />
+              </div>
 
             </div>
 
           </button>
 
 
-          {/* ============================= */}
           {/* Report Management */}
-          {/* ============================= */}
 
           <button
             className="admin-action-card"
@@ -281,20 +327,29 @@ function AdminDashboard() {
             }
           >
 
-            <span>
-              📊
-            </span>
+            <div className="action-icon">
+              <FiFileText />
+            </div>
 
-            <div>
+            <div className="action-content">
+
+              <span className="action-number">
+                02
+              </span>
 
               <h3>
                 Report Management
               </h3>
 
               <p>
-                View and manage business
-                reports.
+                View and manage generated
+                business reports.
               </p>
+
+              <div className="action-link">
+                Manage Reports
+                <FiArrowRight />
+              </div>
 
             </div>
 
@@ -302,7 +357,7 @@ function AdminDashboard() {
 
         </div>
 
-      </div>
+      </section>
 
     </div>
   );
