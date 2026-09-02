@@ -1,5 +1,20 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import {
+  FaUser,
+  FaEnvelope,
+  FaUserShield,
+  FaCalendarAlt,
+  FaEdit,
+  FaLock,
+  FaSignOutAlt,
+  FaSave,
+  FaTimes,
+  FaShieldAlt,
+  FaKey,
+  FaCheckCircle,
+} from "react-icons/fa";
+
 import "./Profile.css";
 
 function Profile() {
@@ -8,7 +23,6 @@ function Profile() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Edit Profile
   const [isEditing, setIsEditing] = useState(false);
 
   const [formData, setFormData] = useState({
@@ -16,7 +30,6 @@ function Profile() {
     email: "",
   });
 
-  // Change Password
   const [isChangingPassword, setIsChangingPassword] = useState(false);
 
   const [passwordData, setPasswordData] = useState({
@@ -58,7 +71,6 @@ function Profile() {
       if (response.status === 401) {
         localStorage.removeItem("token");
         localStorage.removeItem("user");
-
         navigate("/login");
         return;
       }
@@ -125,7 +137,6 @@ function Profile() {
       if (response.status === 401) {
         localStorage.removeItem("token");
         localStorage.removeItem("user");
-
         navigate("/login");
         return;
       }
@@ -137,10 +148,7 @@ function Profile() {
 
       setUser(data.user);
 
-      localStorage.setItem(
-        "user",
-        JSON.stringify(data.user)
-      );
+      localStorage.setItem("user", JSON.stringify(data.user));
 
       alert("✅ Profile updated successfully.");
 
@@ -171,7 +179,6 @@ function Profile() {
       confirmPassword,
     } = passwordData;
 
-    // Validation
     if (
       !currentPassword ||
       !newPassword ||
@@ -212,12 +219,10 @@ function Profile() {
         "https://bizguide-ai-backend.onrender.com/api/auth/change-password",
         {
           method: "PUT",
-
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
-
           body: JSON.stringify({
             currentPassword,
             newPassword,
@@ -227,11 +232,9 @@ function Profile() {
 
       const data = await response.json();
 
-      // JWT expired / invalid
       if (response.status === 401) {
         localStorage.removeItem("token");
         localStorage.removeItem("user");
-
         navigate("/login");
         return;
       }
@@ -245,22 +248,17 @@ function Profile() {
 
       alert("✅ Password changed successfully.");
 
-      // Clear password fields
       setPasswordData({
         currentPassword: "",
         newPassword: "",
         confirmPassword: "",
       });
 
-      // Close password section
       setIsChangingPassword(false);
-
     } catch (error) {
       console.error(error);
 
-      alert(
-        "Unable to connect to the server."
-      );
+      alert("Unable to connect to the server.");
     } finally {
       setPasswordLoading(false);
     }
@@ -303,10 +301,14 @@ function Profile() {
   if (loading) {
     return (
       <div className="profile-page">
-        <div className="profile-card">
-          <div className="profile-loading">
-            Loading Profile...
-          </div>
+        <div className="profile-loading-card">
+          <div className="profile-spinner"></div>
+
+          <h3>Loading Profile</h3>
+
+          <p>
+            Fetching your BizGuide AI account details...
+          </p>
         </div>
       </div>
     );
@@ -318,294 +320,396 @@ function Profile() {
   return (
     <div className="profile-page">
 
-      <div className="profile-card">
+      <div className="profile-wrapper">
 
         {/* ============================= */}
-        {/* Profile Header */}
+        {/* Profile Hero */}
         {/* ============================= */}
 
-        <div className="profile-header">
+        <section className="profile-hero">
 
-          <div className="avatar">
-            👤
-          </div>
+          <div className="profile-hero-glow"></div>
 
-          <h1>My Profile</h1>
+          <div className="profile-hero-content">
 
-          <p>
-            Welcome back, {user?.name}
-          </p>
+            <div className="profile-eyebrow">
+              <FaUser />
+              <span>ACCOUNT CENTER</span>
+            </div>
 
-        </div>
-
-        {/* ============================= */}
-        {/* Profile Information */}
-        {/* ============================= */}
-
-        <div className="profile-info">
-
-          {isEditing ? (
-            <>
-              <div className="info-row">
-
-                <span>Name</span>
-
-                <input
-                  type="text"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  placeholder="Enter your name"
-                />
-
-              </div>
-
-              <div className="info-row">
-
-                <span>Email</span>
-
-                <input
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  placeholder="Enter your email"
-                />
-
-              </div>
-            </>
-          ) : (
-            <>
-              <div className="info-row">
-
-                <span>Name</span>
-
-                <strong>
-                  {user?.name}
-                </strong>
-
-              </div>
-
-              <div className="info-row">
-
-                <span>Email</span>
-
-                <strong>
-                  {user?.email}
-                </strong>
-
-              </div>
-            </>
-          )}
-
-          <div className="info-row">
-
-            <span>Role</span>
-
-            <strong>
-              {user?.role}
-            </strong>
-
-          </div>
-
-          <div className="info-row">
-
-            <span>Joined</span>
-
-            <strong>
-              {formatDate(user?.createdAt)}
-            </strong>
-
-          </div>
-
-        </div>
-
-        {/* ============================= */}
-        {/* Edit Profile Buttons */}
-        {/* ============================= */}
-
-        {!isChangingPassword && (
-          <div className="profile-buttons">
-
-            {isEditing ? (
-              <>
-                <button
-                  className="edit-btn"
-                  onClick={handleUpdate}
-                >
-                  Save Changes
-                </button>
-
-                <button
-                  className="password-btn"
-                  onClick={() => {
-                    setFormData({
-                      name: user.name,
-                      email: user.email,
-                    });
-
-                    setIsEditing(false);
-                  }}
-                >
-                  Cancel
-                </button>
-              </>
-            ) : (
-              <>
-                <button
-                  className="edit-btn"
-                  onClick={() => {
-                    setIsEditing(true);
-                    setIsChangingPassword(false);
-                  }}
-                >
-                  Edit Profile
-                </button>
-
-                <button
-                  className="password-btn"
-                  onClick={() => {
-                    setIsChangingPassword(true);
-                    setIsEditing(false);
-                  }}
-                >
-                  Change Password
-                </button>
-              </>
-            )}
-
-            <button
-              className="logout-btn"
-              onClick={handleLogout}
-            >
-              Logout
-            </button>
-
-          </div>
-        )}
-
-        {/* ============================= */}
-        {/* Change Password Section */}
-        {/* ============================= */}
-
-        {isChangingPassword && (
-
-          <div className="password-section">
-
-            <h2>
-              🔒 Change Password
-            </h2>
+            <h1>
+              My <span>Profile</span>
+            </h1>
 
             <p>
-              Enter your current password and choose
-              a new password.
+              Manage your BizGuide AI account,
+              personal information, and security settings.
             </p>
 
-            <div className="password-form">
+          </div>
 
-              {/* Current Password */}
+          <div className="profile-hero-icon">
+            <FaUser />
+          </div>
 
-              <div className="password-field">
+        </section>
 
-                <label>
-                  Current Password
-                </label>
+        {/* ============================= */}
+        {/* Main Profile Card */}
+        {/* ============================= */}
 
-                <input
-                  type="password"
-                  name="currentPassword"
-                  value={
-                    passwordData.currentPassword
-                  }
-                  onChange={
-                    handlePasswordChange
-                  }
-                  placeholder="Enter current password"
-                />
+        <section className="profile-main-card">
 
+          {/* Profile Identity */}
+
+          <div className="profile-identity">
+
+            <div className="profile-avatar">
+              <FaUser />
+            </div>
+
+            <div className="identity-content">
+
+              <span className="identity-label">
+                ACCOUNT PROFILE
+              </span>
+
+              <h2>
+                {user?.name || "User"}
+              </h2>
+
+              <p>
+                <FaEnvelope />
+                {user?.email || "--"}
+              </p>
+
+            </div>
+
+            <div className="profile-status">
+              <span></span>
+              Active Account
+            </div>
+
+          </div>
+
+          {/* ============================= */}
+          {/* Account Information */}
+          {/* ============================= */}
+
+          <div className="profile-section-heading">
+
+            <div className="heading-icon">
+              <FaUserShield />
+            </div>
+
+            <div>
+              <span>ACCOUNT DETAILS</span>
+              <h2>Personal Information</h2>
+            </div>
+
+          </div>
+
+          <div className="profile-info-grid">
+
+            {/* Name */}
+
+            <div className="profile-info-item">
+
+              <div className="info-icon">
+                <FaUser />
               </div>
 
-              {/* New Password */}
+              <div className="info-content">
 
-              <div className="password-field">
+                <span>FULL NAME</span>
 
-                <label>
-                  New Password
-                </label>
-
-                <input
-                  type="password"
-                  name="newPassword"
-                  value={
-                    passwordData.newPassword
-                  }
-                  onChange={
-                    handlePasswordChange
-                  }
-                  placeholder="Enter new password"
-                />
-
-              </div>
-
-              {/* Confirm Password */}
-
-              <div className="password-field">
-
-                <label>
-                  Confirm New Password
-                </label>
-
-                <input
-                  type="password"
-                  name="confirmPassword"
-                  value={
-                    passwordData.confirmPassword
-                  }
-                  onChange={
-                    handlePasswordChange
-                  }
-                  placeholder="Confirm new password"
-                />
+                {isEditing ? (
+                  <input
+                    type="text"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    placeholder="Enter your name"
+                  />
+                ) : (
+                  <strong>
+                    {user?.name || "--"}
+                  </strong>
+                )}
 
               </div>
 
             </div>
 
-            {/* Password Buttons */}
+            {/* Email */}
 
-            <div className="profile-buttons">
+            <div className="profile-info-item">
+
+              <div className="info-icon">
+                <FaEnvelope />
+              </div>
+
+              <div className="info-content">
+
+                <span>EMAIL ADDRESS</span>
+
+                {isEditing ? (
+                  <input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    placeholder="Enter your email"
+                  />
+                ) : (
+                  <strong>
+                    {user?.email || "--"}
+                  </strong>
+                )}
+
+              </div>
+
+            </div>
+
+            {/* Role */}
+
+            <div className="profile-info-item">
+
+              <div className="info-icon">
+                <FaUserShield />
+              </div>
+
+              <div className="info-content">
+
+                <span>ACCOUNT ROLE</span>
+
+                <strong className="role-value">
+                  {user?.role || "--"}
+                </strong>
+
+              </div>
+
+            </div>
+
+            {/* Joined */}
+
+            <div className="profile-info-item">
+
+              <div className="info-icon">
+                <FaCalendarAlt />
+              </div>
+
+              <div className="info-content">
+
+                <span>MEMBER SINCE</span>
+
+                <strong>
+                  {formatDate(user?.createdAt)}
+                </strong>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          {/* ============================= */}
+          {/* Profile Actions */}
+          {/* ============================= */}
+
+          {!isChangingPassword && (
+
+            <div className="profile-actions">
+
+              {isEditing ? (
+                <>
+                  <button
+                    className="profile-primary-btn"
+                    onClick={handleUpdate}
+                  >
+                    <FaSave />
+                    Save Changes
+                  </button>
+
+                  <button
+                    className="profile-secondary-btn"
+                    onClick={() => {
+                      setFormData({
+                        name: user.name,
+                        email: user.email,
+                      });
+
+                      setIsEditing(false);
+                    }}
+                  >
+                    <FaTimes />
+                    Cancel
+                  </button>
+                </>
+              ) : (
+                <>
+                  <button
+                    className="profile-primary-btn"
+                    onClick={() => {
+                      setIsEditing(true);
+                      setIsChangingPassword(false);
+                    }}
+                  >
+                    <FaEdit />
+                    Edit Profile
+                  </button>
+
+                  <button
+                    className="profile-secondary-btn"
+                    onClick={() => {
+                      setIsChangingPassword(true);
+                      setIsEditing(false);
+                    }}
+                  >
+                    <FaLock />
+                    Change Password
+                  </button>
+                </>
+              )}
 
               <button
-                className="edit-btn"
-                onClick={handlePasswordUpdate}
-                disabled={passwordLoading}
-              >
-                {passwordLoading
-                  ? "Updating..."
-                  : "Update Password"}
-              </button>
-
-              <button
-                className="password-btn"
-                onClick={handleCancelPassword}
-                disabled={passwordLoading}
-              >
-                Cancel
-              </button>
-
-              <button
-                className="logout-btn"
+                className="profile-logout-btn"
                 onClick={handleLogout}
-                disabled={passwordLoading}
               >
+                <FaSignOutAlt />
                 Logout
               </button>
 
             </div>
 
-          </div>
+          )}
 
-        )}
+          {/* ============================= */}
+          {/* Security Section */}
+          {/* ============================= */}
+
+          {isChangingPassword && (
+
+            <div className="password-section">
+
+              <div className="password-header">
+
+                <div className="password-header-icon">
+                  <FaShieldAlt />
+                </div>
+
+                <div>
+                  <span>ACCOUNT SECURITY</span>
+                  <h2>Change Password</h2>
+                  <p>
+                    Update your password to keep your
+                    account secure.
+                  </p>
+                </div>
+
+              </div>
+
+              <div className="security-notice">
+                <FaCheckCircle />
+                <span>
+                  Use a password with at least 6 characters.
+                </span>
+              </div>
+
+              <div className="password-form">
+
+                <div className="password-field">
+
+                  <label>
+                    <FaKey />
+                    Current Password
+                  </label>
+
+                  <input
+                    type="password"
+                    name="currentPassword"
+                    value={passwordData.currentPassword}
+                    onChange={handlePasswordChange}
+                    placeholder="Enter current password"
+                  />
+
+                </div>
+
+                <div className="password-field">
+
+                  <label>
+                    <FaLock />
+                    New Password
+                  </label>
+
+                  <input
+                    type="password"
+                    name="newPassword"
+                    value={passwordData.newPassword}
+                    onChange={handlePasswordChange}
+                    placeholder="Enter new password"
+                  />
+
+                </div>
+
+                <div className="password-field">
+
+                  <label>
+                    <FaLock />
+                    Confirm New Password
+                  </label>
+
+                  <input
+                    type="password"
+                    name="confirmPassword"
+                    value={passwordData.confirmPassword}
+                    onChange={handlePasswordChange}
+                    placeholder="Confirm new password"
+                  />
+
+                </div>
+
+              </div>
+
+              <div className="password-actions">
+
+                <button
+                  className="profile-primary-btn"
+                  onClick={handlePasswordUpdate}
+                  disabled={passwordLoading}
+                >
+                  <FaSave />
+
+                  {passwordLoading
+                    ? "Updating..."
+                    : "Update Password"}
+                </button>
+
+                <button
+                  className="profile-secondary-btn"
+                  onClick={handleCancelPassword}
+                  disabled={passwordLoading}
+                >
+                  <FaTimes />
+                  Cancel
+                </button>
+
+                <button
+                  className="profile-logout-btn"
+                  onClick={handleLogout}
+                  disabled={passwordLoading}
+                >
+                  <FaSignOutAlt />
+                  Logout
+                </button>
+
+              </div>
+
+            </div>
+
+          )}
+
+        </section>
 
       </div>
 
