@@ -1,168 +1,319 @@
+/* =========================
+   FINANCIAL SECTION
+========================= */
+
 .financial-section {
-    width: 95%;
-    max-width: 1250px;
-    margin: 40px auto;
+  width: 100%;
+  max-width: 1250px;
+
+  margin: 45px auto;
 }
 
-/* ========================= */
-/* HEADER */
-/* ========================= */
+
+/* =========================
+   HEADER
+========================= */
 
 .financial-header {
-    margin-bottom: 30px;
+  margin-bottom: 24px;
 }
 
-.financial-header h2 {
-    font-size: 30px;
-    font-weight: 700;
-    color: #1E3A8A;
-    margin-bottom: 8px;
+.financial-title {
+  display: flex;
+  align-items: center;
+  gap: 13px;
 }
 
-.financial-header p {
-    color: #64748B;
-    font-size: 15px;
-    line-height: 1.6;
-    max-width: 700px;
+.financial-title-icon {
+  width: 46px;
+  height: 46px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  border-radius: 13px;
+
+  color: white;
+
+  background:
+    linear-gradient(
+      135deg,
+      #4f46e5,
+      #7c3aed
+    );
+
+  font-size: 18px;
+
+  box-shadow:
+    0 9px 22px rgba(79, 70, 229, 0.18);
 }
 
-/* ========================= */
-/* GRID */
-/* ========================= */
+.financial-title span {
+  display: block;
+
+  margin-bottom: 3px;
+
+  color: #7c3aed;
+
+  font-size: 9px;
+
+  font-weight: 800;
+
+  letter-spacing: 1.6px;
+}
+
+.financial-title h2 {
+  margin: 0 0 4px;
+
+  color: #111827;
+
+  font-size: 25px;
+
+  font-weight: 800;
+}
+
+.financial-title p {
+  margin: 0;
+
+  color: #98a2b3;
+
+  font-size: 11px;
+
+  line-height: 1.6;
+}
+
+
+/* =========================
+   GRID
+========================= */
 
 .financial-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 25px;
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, 1fr);
+
+  gap: 15px;
 }
 
-/* ========================= */
-/* CARD */
-/* ========================= */
+
+/* =========================
+   CARD
+========================= */
 
 .financial-card {
-    background: #ffffff;
-    border-radius: 20px;
-    padding: 30px;
-    border: 1px solid #E5E7EB;
-    box-shadow: 0 10px 25px rgba(0,0,0,.08);
-    transition: all .3s ease;
+  position: relative;
+
+  overflow: hidden;
+
+  min-height: 205px;
+
+  padding: 22px;
+
+  border: 1px solid #eceaf5;
+
+  border-radius: 18px;
+
+  background: #ffffff;
+
+  box-shadow:
+    0 8px 25px rgba(31, 35, 60, 0.045);
+
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease,
+    border-color 0.3s ease;
+}
+
+.financial-card::after {
+  content: "";
+
+  position: absolute;
+
+  width: 110px;
+  height: 110px;
+
+  right: -55px;
+  bottom: -55px;
+
+  border-radius: 50%;
+
+  background: rgba(124, 58, 237, 0.045);
 }
 
 .financial-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 18px 35px rgba(37,99,235,.15);
+  transform: translateY(-5px);
+
+  border-color: #ddd6fe;
+
+  box-shadow:
+    0 16px 35px rgba(79, 70, 229, 0.10);
 }
 
-/* Last card spans both columns */
 
-.full-width {
-    grid-column: 1 / -1;
+/* =========================
+   CARD TOP
+========================= */
+
+.financial-card-top {
+  display: flex;
+
+  justify-content: space-between;
+
+  margin-bottom: 15px;
 }
 
-/* ========================= */
-/* ICON */
-/* ========================= */
+
+/* =========================
+   ICON
+========================= */
 
 .financial-icon {
-    width: 65px;
-    height: 65px;
-    border-radius: 50%;
+  width: 45px;
+  height: 45px;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
 
-    font-size: 26px;
-    margin-bottom: 18px;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 12px;
+
+  color: #6d28d9;
+
+  background: #f1efff;
+
+  font-size: 17px;
 }
 
-.blue {
-    background: #DBEAFE;
-    color: #2563EB;
+
+/* =========================
+   LABEL
+========================= */
+
+.financial-label {
+  display: block;
+
+  margin-bottom: 5px;
+
+  color: #98a2b3;
+
+  font-size: 8px;
+
+  font-weight: 800;
+
+  letter-spacing: 1.1px;
 }
 
-.green {
-    background: #DCFCE7;
-    color: #16A34A;
-}
 
-.orange {
-    background: #FEF3C7;
-    color: #D97706;
-}
-
-.purple {
-    background: #EDE9FE;
-    color: #7C3AED;
-}
-
-.red {
-    background: #FEE2E2;
-    color: #DC2626;
-}
-
-/* ========================= */
-/* TEXT */
-/* ========================= */
+/* =========================
+   TITLE
+========================= */
 
 .financial-card h3 {
-    font-size: 22px;
-    font-weight: 700;
-    color: #1F2937;
-    margin-bottom: 15px;
+  margin: 0 0 9px;
+
+  color: #1f2937;
+
+  font-size: 17px;
+
+  font-weight: 750;
 }
+
+
+/* =========================
+   CONTENT
+========================= */
 
 .financial-card p {
-    color: #4B5563;
-    font-size: 15px;
-    line-height: 1.8;
-    text-align: justify;
+  margin: 0;
+
+  color: #667085;
+
+  font-size: 12px;
+
+  line-height: 1.75;
 }
 
-/* ========================= */
-/* RESPONSIVE */
-/* ========================= */
 
-@media (max-width: 992px) {
+/* =========================
+   CARD VARIATIONS
+========================= */
 
-    .financial-grid {
-        grid-template-columns: 1fr;
-    }
+.financial-card.investment .financial-icon {
+  color: #6d28d9;
+  background: #f3e8ff;
+}
 
-    .full-width {
-        grid-column: auto;
-    }
+.financial-card.revenue .financial-icon {
+  color: #4338ca;
+  background: #eef2ff;
+}
+
+.financial-card.profit .financial-icon {
+  color: #15803d;
+  background: #f0fdf4;
+}
+
+.financial-card.margin .financial-icon {
+  color: #7c3aed;
+  background: #ede9fe;
+}
+
+.financial-card.break-even {
+  grid-column: 1 / -1;
+
+  min-height: 160px;
+}
+
+.financial-card.break-even .financial-icon {
+  color: #b45309;
+  background: #fffbeb;
+}
+
+
+/* =========================
+   TABLET
+========================= */
+
+@media (max-width: 700px) {
+
+  .financial-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .financial-card.break-even {
+    grid-column: auto;
+  }
 
 }
+
+
+/* =========================
+   MOBILE
+========================= */
 
 @media (max-width: 600px) {
 
-    .financial-section {
-        width: 100%;
-        padding: 0 15px;
-    }
+  .financial-section {
+    margin: 35px auto;
+  }
 
-    .financial-header h2 {
-        font-size: 24px;
-    }
+  .financial-title h2 {
+    font-size: 22px;
+  }
 
-    .financial-card {
-        padding: 22px;
-    }
+  .financial-card {
+    min-height: auto;
 
-    .financial-card h3 {
-        font-size: 20px;
-    }
+    padding: 20px;
+  }
 
-    .financial-card p {
-        font-size: 14px;
-    }
-
-    .financial-icon {
-        width: 55px;
-        height: 55px;
-        font-size: 22px;
-    }
+  .financial-card.break-even {
+    min-height: auto;
+  }
 
 }
