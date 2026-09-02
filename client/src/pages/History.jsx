@@ -1,5 +1,18 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import {
+  FaSearch,
+  FaFileAlt,
+  FaCalendarAlt,
+  FaMapMarkerAlt,
+  FaMoneyBillWave,
+  FaEye,
+  FaTrash,
+  FaChartLine,
+  FaArrowRight,
+  FaHistory,
+} from "react-icons/fa";
+
 import "./History.css";
 
 function History() {
@@ -15,23 +28,25 @@ function History() {
   }, []);
 
   useEffect(() => {
-    const keyword = search.toLowerCase();
+    const keyword = search.toLowerCase().trim();
 
     const result = reports.filter((item) => {
       return (
-        item.businessName.toLowerCase().includes(keyword) ||
-        item.category.toLowerCase().includes(keyword) ||
-        item.location.toLowerCase().includes(keyword)
+        (item.businessName || "").toLowerCase().includes(keyword) ||
+        (item.category || "").toLowerCase().includes(keyword) ||
+        (item.location || "").toLowerCase().includes(keyword)
       );
     });
 
     setFilteredReports(result);
   }, [search, reports]);
 
-  // Fetch Reports
+  /* ========================= */
+  /* FETCH REPORTS */
+  /* ========================= */
+
   const fetchReports = async () => {
     try {
-
       setLoading(true);
 
       const token = localStorage.getItem("token");
@@ -41,11 +56,14 @@ function History() {
         return;
       }
 
-      const response = await fetch("https://bizguide-ai-backend.onrender.com/reports", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await fetch(
+        "https://bizguide-ai-backend.onrender.com/reports",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       const data = await response.json();
 
@@ -58,26 +76,22 @@ function History() {
       }
 
       if (data.success) {
-        setReports(data.reports);
-        setFilteredReports(data.reports);
+        setReports(data.reports || []);
+        setFilteredReports(data.reports || []);
       }
-
     } catch (error) {
-
       console.error(error);
-
       alert("Unable to load reports.");
-
     } finally {
-
       setLoading(false);
-
     }
   };
 
-  // Delete Report
-  const deleteReport = async (id) => {
+  /* ========================= */
+  /* DELETE REPORT */
+  /* ========================= */
 
+  const deleteReport = async (id) => {
     const confirmDelete = window.confirm(
       "Are you sure you want to delete this report?"
     );
@@ -85,7 +99,6 @@ function History() {
     if (!confirmDelete) return;
 
     try {
-
       const token = localStorage.getItem("token");
 
       const response = await fetch(
@@ -101,28 +114,24 @@ function History() {
       const data = await response.json();
 
       if (data.success) {
-
-        alert("✅ Report deleted successfully.");
-
+        alert("Report deleted successfully.");
         fetchReports();
-
       } else {
-
-        alert(data.message);
-
+        alert(data.message || "Unable to delete report.");
       }
-
     } catch (error) {
-
       console.error(error);
-
       alert("Unable to delete report.");
-
     }
-
   };
 
+  /* ========================= */
+  /* DATE */
+  /* ========================= */
+
   const formatDate = (date) => {
+    if (!date) return "--";
+
     return new Date(date).toLocaleDateString("en-IN", {
       day: "numeric",
       month: "short",
@@ -130,137 +139,340 @@ function History() {
     });
   };
 
+  /* ========================= */
+  /* VIEW REPORT */
+  /* ========================= */
+
+  const viewReport = (item) => {
+    navigate("/report", {
+      state: {
+        business: {
+          businessName: item.businessName,
+          category: item.category,
+          location: item.location,
+          budget: item.budget,
+          description: item.description,
+        },
+        report: item.report,
+        reportId: item._id,
+      },
+    });
+  };
+
   return (
     <div className="history-page">
 
-      <div className="history-header">
+      {/* ========================= */}
+      {/* HEADER */}
+      {/* ========================= */}
 
-        <h1>Business Analysis History</h1>
+      <section className="history-hero">
 
-        <p>
-          View all your AI-generated business reports.
-        </p>
+        <div className="history-hero-content">
 
-      </div>
+          <div className="history-eyebrow">
+            <FaHistory />
+            <span>YOUR BUSINESS JOURNEY</span>
+          </div>
 
-      <div className="search-section">
+          <h1>
+            Analysis <span>History</span>
+          </h1>
+
+          <p>
+            Review your previous AI-generated business reports,
+            track your ideas, and revisit your business insights.
+          </p>
+
+        </div>
+
+        <div className="history-hero-icon">
+          <FaChartLine />
+        </div>
+
+      </section>
+
+
+      {/* ========================= */}
+      {/* SEARCH */}
+      {/* ========================= */}
+
+      <div className="history-search">
+
+        <FaSearch />
 
         <input
           type="text"
-          placeholder="Search by Business, Category or Location..."
+          placeholder="Search by business, category or location..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
 
-      </div>
-
-      <div className="stats-container">
-
-        <div className="stat-card">
-          <h2>{reports.length}</h2>
-          <span>Total Reports</span>
-        </div>
-
-        <div className="stat-card">
-          <h2>
-            {reports.length > 0
-              ? formatDate(reports[0].createdAt)
-              : "--"}
-          </h2>
-
-          <span>Latest Analysis</span>
-        </div>
+        {search && (
+          <button
+            className="clear-search"
+            onClick={() => setSearch("")}
+          >
+            ×
+          </button>
+        )}
 
       </div>
+
+
+      {/* ========================= */}
+      {/* STATISTICS */}
+      {/* ========================= */}
+
+      <div className="history-stats">
+
+        <div className="history-stat">
+
+          <div className="stat-icon">
+            <FaFileAlt />
+          </div>
+
+          <div>
+            <strong>{reports.length}</strong>
+            <span>Total Reports</span>
+          </div>
+
+        </div>
+
+
+        <div className="history-stat">
+
+          <div className="stat-icon">
+            <FaCalendarAlt />
+          </div>
+
+          <div>
+            <strong>
+              {reports.length > 0
+                ? formatDate(reports[0].createdAt)
+                : "--"}
+            </strong>
+
+            <span>Latest Analysis</span>
+          </div>
+
+        </div>
+
+
+        <div className="history-stat">
+
+          <div className="stat-icon">
+            <FaChartLine />
+          </div>
+
+          <div>
+            <strong>{filteredReports.length}</strong>
+            <span>Matching Results</span>
+          </div>
+
+        </div>
+
+      </div>
+
+
+      {/* ========================= */}
+      {/* SECTION HEADER */}
+      {/* ========================= */}
+
+      {!loading && reports.length > 0 && (
+        <div className="reports-heading">
+
+          <div>
+            <span>REPORT LIBRARY</span>
+
+            <h2>
+              Your Business Reports
+            </h2>
+          </div>
+
+          <span className="report-count">
+            {filteredReports.length}{" "}
+            {filteredReports.length === 1
+              ? "Report"
+              : "Reports"}
+          </span>
+
+        </div>
+      )}
+
+
+      {/* ========================= */}
+      {/* LOADING */}
+      {/* ========================= */}
 
       {loading ? (
 
-        <div className="loading">
-          Loading Reports...
+        <div className="history-loading">
+
+          <div className="loading-spinner"></div>
+
+          <h3>
+            Loading Your Reports
+          </h3>
+
+          <p>
+            Fetching your business analysis history...
+          </p>
+
         </div>
 
       ) : filteredReports.length === 0 ? (
 
-        <div className="empty-history">
+        /* ========================= */
+        /* EMPTY STATE */
+        /* ========================= */
 
-          <h2>No Reports Found</h2>
+        <div className="history-empty">
+
+          <div className="empty-icon">
+            <FaFileAlt />
+          </div>
+
+          <span>NO REPORTS FOUND</span>
+
+          <h2>
+            {search
+              ? "No Matching Reports"
+              : "Start Your Business Journey"}
+          </h2>
 
           <p>
-            Start your first AI business analysis.
+            {search
+              ? "Try searching with a different business name, category, or location."
+              : "Create your first AI-powered business analysis and your report will appear here."}
           </p>
 
           <button
             onClick={() => navigate("/analyze")}
           >
-            Analyze Business
+            <span>Analyze a Business</span>
+            <FaArrowRight />
           </button>
 
         </div>
 
       ) : (
 
+        /* ========================= */
+        /* REPORT GRID */
+        /* ========================= */
+
         <div className="history-grid">
 
           {filteredReports.map((item) => (
 
-            <div
+            <article
               className="history-card"
               key={item._id}
             >
 
-              <div className="card-top">
+              {/* Card top */}
 
-                <h2>{item.businessName}</h2>
+              <div className="history-card-top">
 
-                <span className="status">
+                <div className="business-icon">
+                  <FaFileAlt />
+                </div>
+
+                <span className="completed-badge">
+                  <span></span>
                   Completed
                 </span>
 
               </div>
 
-              <div className="card-details">
 
-                <p>
-                  <strong>Category:</strong> {item.category}
-                </p>
+              {/* Business */}
 
-                <p>
-                  <strong>Location:</strong> {item.location}
-                </p>
+              <div className="business-info">
 
-                <p>
-                  <strong>Budget:</strong> ₹ {item.budget}
-                </p>
+                <span className="business-category">
+                  {item.category || "Business Analysis"}
+                </span>
 
-                <p>
-                  <strong>Date:</strong> {formatDate(item.createdAt)}
-                </p>
+                <h3>
+                  {item.businessName || "Untitled Business"}
+                </h3>
 
               </div>
 
-              <div className="card-buttons">
+
+              {/* Details */}
+
+              <div className="history-details">
+
+                <div className="history-detail">
+
+                  <FaMapMarkerAlt />
+
+                  <div>
+                    <span>LOCATION</span>
+                    <strong>
+                      {item.location || "--"}
+                    </strong>
+                  </div>
+
+                </div>
+
+
+                <div className="history-detail">
+
+                  <FaMoneyBillWave />
+
+                  <div>
+                    <span>BUDGET</span>
+                    <strong>
+                      ₹ {Number(item.budget || 0).toLocaleString("en-IN")}
+                    </strong>
+                  </div>
+
+                </div>
+
+
+                <div className="history-detail">
+
+                  <FaCalendarAlt />
+
+                  <div>
+                    <span>ANALYZED ON</span>
+                    <strong>
+                      {formatDate(item.createdAt)}
+                    </strong>
+                  </div>
+
+                </div>
+
+              </div>
+
+
+              {/* Actions */}
+
+              <div className="history-actions">
 
                 <button
-                  className="view-btn"
-                  onClick={() =>
-                    navigate("/report", {
-                      state: item,
-                    })
-                  }
+                  className="history-view-btn"
+                  onClick={() => viewReport(item)}
                 >
-                  View Report
+                  <FaEye />
+                  <span>View Report</span>
                 </button>
 
                 <button
-                  className="delete-btn"
+                  className="history-delete-btn"
                   onClick={() => deleteReport(item._id)}
+                  title="Delete Report"
                 >
-                  Delete
+                  <FaTrash />
                 </button>
 
               </div>
 
-            </div>
+            </article>
 
           ))}
 
