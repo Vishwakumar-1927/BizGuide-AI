@@ -1,5 +1,15 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import {
+    FaRobot,
+    FaUser,
+    FaEnvelope,
+    FaLock,
+    FaArrowRight,
+    FaShieldAlt,
+    FaLightbulb,
+    FaChartLine,
+} from "react-icons/fa";
 import "./Register.css";
 
 function Register() {
@@ -39,21 +49,22 @@ function Register() {
 
         try {
 
-            const response = await fetch("https://bizguide-ai-backend.onrender.com/api/auth/register", {
+            const response = await fetch(
+                "https://bizguide-ai-backend.onrender.com/api/auth/register",
+                {
+                    method: "POST",
 
-                method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
 
-                headers: {
-                    "Content-Type": "application/json"
-                },
-
-                body: JSON.stringify({
-                    name: formData.name,
-                    email: formData.email,
-                    password: formData.password
-                })
-
-            });
+                    body: JSON.stringify({
+                        name: formData.name,
+                        email: formData.email,
+                        password: formData.password
+                    })
+                }
+            );
 
             const data = await response.json();
 
@@ -78,83 +89,271 @@ function Register() {
         }
 
         setLoading(false);
-
     };
 
     return (
 
         <div className="register-page">
 
-            <div className="register-card">
+            {/* Background Decorations */}
 
-                <h1>Create Account 🚀</h1>
+            <div className="register-bg-orb register-orb-one"></div>
+            <div className="register-bg-orb register-orb-two"></div>
 
-                <p>Join BizGuide AI today.</p>
+            <div className="register-container">
 
-                <form onSubmit={handleSubmit}>
+                {/* ================================= */}
+                {/* Left Introduction */}
+                {/* ================================= */}
 
-                    <input
-                        type="text"
-                        name="name"
-                        placeholder="Full Name"
-                        value={formData.name}
-                        onChange={handleChange}
-                        required
-                    />
+                <div className="register-intro">
 
-                    <input
-                        type="email"
-                        name="email"
-                        placeholder="Email Address"
-                        value={formData.email}
-                        onChange={handleChange}
-                        required
-                    />
+                    <div className="register-brand-icon">
+                        <FaRobot />
+                    </div>
 
-                    <input
-                        type="password"
-                        name="password"
-                        placeholder="Password"
-                        value={formData.password}
-                        onChange={handleChange}
-                        required
-                    />
+                    <div className="register-eyebrow">
+                        <span></span>
+                        BIZGUIDE AI
+                    </div>
 
-                    <input
-                        type="password"
-                        name="confirmPassword"
-                        placeholder="Confirm Password"
-                        value={formData.confirmPassword}
-                        onChange={handleChange}
-                        required
-                    />
+                    <h1>
+                        Build Your
+                        <span> Business Future.</span>
+                    </h1>
 
-                    <button type="submit">
+                    <p>
+                        Create your BizGuide AI account and get
+                        intelligent insights to evaluate, plan,
+                        and grow your business ideas.
+                    </p>
 
-                        {loading ? "Creating Account..." : "Register"}
+                    <div className="register-features">
 
-                    </button>
+                        <div className="register-feature">
 
-                </form>
+                            <div className="register-feature-icon">
+                                <FaLightbulb />
+                            </div>
 
-                <p className="bottom-text">
+                            <div>
+                                <strong>Turn Ideas Into Plans</strong>
 
-                    Already have an account?
+                                <span>
+                                    Transform your business idea
+                                    into a structured plan.
+                                </span>
+                            </div>
 
-                    <Link to="/login">
+                        </div>
 
-                        Login
+                        <div className="register-feature">
 
-                    </Link>
+                            <div className="register-feature-icon">
+                                <FaChartLine />
+                            </div>
 
-                </p>
+                            <div>
+                                <strong>AI-Powered Insights</strong>
+
+                                <span>
+                                    Analyze markets, finances,
+                                    risks, and opportunities.
+                                </span>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                {/* ================================= */}
+                {/* Register Card */}
+                {/* ================================= */}
+
+                <div className="register-card">
+
+                    <div className="register-card-header">
+
+                        <div className="mobile-register-icon">
+                            <FaRobot />
+                        </div>
+
+                        <span>CREATE YOUR ACCOUNT</span>
+
+                        <h2>
+                            Start your journey
+                        </h2>
+
+                        <p>
+                            Create an account to access BizGuide AI.
+                        </p>
+
+                    </div>
+
+                    <form onSubmit={handleSubmit}>
+
+                        {/* Full Name */}
+
+                        <div className="register-field">
+
+                            <label>
+                                <FaUser />
+                                Full Name
+                            </label>
+
+                            <div className="register-input-wrapper">
+
+                                <FaUser />
+
+                                <input
+                                    type="text"
+                                    name="name"
+                                    placeholder="Enter your full name"
+                                    value={formData.name}
+                                    onChange={handleChange}
+                                    required
+                                />
+
+                            </div>
+
+                        </div>
+
+                        {/* Email */}
+
+                        <div className="register-field">
+
+                            <label>
+                                <FaEnvelope />
+                                Email Address
+                            </label>
+
+                            <div className="register-input-wrapper">
+
+                                <FaEnvelope />
+
+                                <input
+                                    type="email"
+                                    name="email"
+                                    placeholder="Enter your email"
+                                    value={formData.email}
+                                    onChange={handleChange}
+                                    required
+                                />
+
+                            </div>
+
+                        </div>
+
+                        {/* Password */}
+
+                        <div className="register-field">
+
+                            <label>
+                                <FaLock />
+                                Password
+                            </label>
+
+                            <div className="register-input-wrapper">
+
+                                <FaLock />
+
+                                <input
+                                    type="password"
+                                    name="password"
+                                    placeholder="Create a password"
+                                    value={formData.password}
+                                    onChange={handleChange}
+                                    required
+                                />
+
+                            </div>
+
+                        </div>
+
+                        {/* Confirm Password */}
+
+                        <div className="register-field">
+
+                            <label>
+                                <FaLock />
+                                Confirm Password
+                            </label>
+
+                            <div className="register-input-wrapper">
+
+                                <FaLock />
+
+                                <input
+                                    type="password"
+                                    name="confirmPassword"
+                                    placeholder="Confirm your password"
+                                    value={formData.confirmPassword}
+                                    onChange={handleChange}
+                                    required
+                                />
+
+                            </div>
+
+                        </div>
+
+                        {/* Register Button */}
+
+                        <button
+                            type="submit"
+                            className="register-submit-btn"
+                            disabled={loading}
+                        >
+
+                            <span>
+                                {loading
+                                    ? "Creating Account..."
+                                    : "Create Account"}
+                            </span>
+
+                            {!loading && <FaArrowRight />}
+
+                        </button>
+
+                    </form>
+
+                    <div className="register-divider">
+
+                        <span></span>
+
+                        <p>ALREADY HAVE AN ACCOUNT?</p>
+
+                        <span></span>
+
+                    </div>
+
+                    <p className="register-bottom-text">
+
+                        Already have an account?
+
+                        <Link to="/login">
+                            Sign In
+                        </Link>
+
+                    </p>
+
+                    <div className="register-security">
+
+                        <FaShieldAlt />
+
+                        <span>
+                            Your account is protected by secure authentication
+                        </span>
+
+                    </div>
+
+                </div>
 
             </div>
 
         </div>
-
     );
-
 }
 
 export default Register;

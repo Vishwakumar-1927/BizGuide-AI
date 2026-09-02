@@ -1,5 +1,13 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import {
+    FaRobot,
+    FaEnvelope,
+    FaLock,
+    FaArrowRight,
+    FaShieldAlt,
+    FaChartLine,
+} from "react-icons/fa";
 import "./Login.css";
 
 function Login() {
@@ -28,17 +36,18 @@ function Login() {
 
         try {
 
-            const response = await fetch("https://bizguide-ai-backend.onrender.com/api/auth/login", {
+            const response = await fetch(
+                "https://bizguide-ai-backend.onrender.com/api/auth/login",
+                {
+                    method: "POST",
 
-                method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
 
-                headers: {
-                    "Content-Type": "application/json"
-                },
-
-                body: JSON.stringify(formData)
-
-            });
+                    body: JSON.stringify(formData)
+                }
+            );
 
             const data = await response.json();
 
@@ -46,7 +55,10 @@ function Login() {
 
                 localStorage.setItem("token", data.token);
 
-                localStorage.setItem("user", JSON.stringify(data.user));
+                localStorage.setItem(
+                    "user",
+                    JSON.stringify(data.user)
+                );
 
                 alert("Login Successful!");
 
@@ -67,65 +79,207 @@ function Login() {
         }
 
         setLoading(false);
-
     };
 
     return (
 
         <div className="login-page">
 
-            <div className="login-card">
+            {/* Background Decorations */}
 
-                <h1>Welcome Back 👋</h1>
+            <div className="login-bg-orb login-orb-one"></div>
+            <div className="login-bg-orb login-orb-two"></div>
 
-                <p>Login to continue using BizGuide AI</p>
+            <div className="login-container">
 
-                <form onSubmit={handleSubmit}>
+                {/* ============================= */}
+                {/* Left Information Panel */}
+                {/* ============================= */}
 
-                    <input
-                        type="email"
-                        name="email"
-                        placeholder="Email Address"
-                        value={formData.email}
-                        onChange={handleChange}
-                        required
-                    />
+                <div className="login-intro">
 
-                    <input
-                        type="password"
-                        name="password"
-                        placeholder="Password"
-                        value={formData.password}
-                        onChange={handleChange}
-                        required
-                    />
+                    <div className="login-brand-icon">
+                        <FaRobot />
+                    </div>
 
-                    <button type="submit">
+                    <div className="login-eyebrow">
+                        <span></span>
+                        BIZGUIDE AI
+                    </div>
 
-                        {loading ? "Logging in..." : "Login"}
+                    <h1>
+                        Welcome
+                        <span> Back.</span>
+                    </h1>
 
-                    </button>
+                    <p>
+                        Continue your journey with AI-powered
+                        business intelligence and smarter
+                        decision making.
+                    </p>
 
-                </form>
+                    <div className="login-features">
 
-                <p className="bottom-text">
+                        <div className="login-feature">
+                            <div className="feature-icon">
+                                <FaChartLine />
+                            </div>
 
-                    Don't have an account?
+                            <div>
+                                <strong>Smart Business Analysis</strong>
+                                <span>
+                                    Turn your ideas into actionable insights.
+                                </span>
+                            </div>
+                        </div>
 
-                    <Link to="/register">
+                        <div className="login-feature">
+                            <div className="feature-icon">
+                                <FaShieldAlt />
+                            </div>
 
-                        Register
+                            <div>
+                                <strong>Secure Account</strong>
+                                <span>
+                                    Your account and business data stay protected.
+                                </span>
+                            </div>
+                        </div>
 
-                    </Link>
+                    </div>
 
-                </p>
+                </div>
+
+                {/* ============================= */}
+                {/* Login Card */}
+                {/* ============================= */}
+
+                <div className="login-card">
+
+                    <div className="login-card-header">
+
+                        <div className="mobile-login-icon">
+                            <FaRobot />
+                        </div>
+
+                        <span>ACCOUNT ACCESS</span>
+
+                        <h2>
+                            Sign in to your account
+                        </h2>
+
+                        <p>
+                            Enter your credentials to continue.
+                        </p>
+
+                    </div>
+
+                    <form onSubmit={handleSubmit}>
+
+                        {/* Email */}
+
+                        <div className="login-field">
+
+                            <label>
+                                <FaEnvelope />
+                                Email Address
+                            </label>
+
+                            <div className="login-input-wrapper">
+
+                                <FaEnvelope />
+
+                                <input
+                                    type="email"
+                                    name="email"
+                                    placeholder="Enter your email"
+                                    value={formData.email}
+                                    onChange={handleChange}
+                                    required
+                                />
+
+                            </div>
+
+                        </div>
+
+                        {/* Password */}
+
+                        <div className="login-field">
+
+                            <label>
+                                <FaLock />
+                                Password
+                            </label>
+
+                            <div className="login-input-wrapper">
+
+                                <FaLock />
+
+                                <input
+                                    type="password"
+                                    name="password"
+                                    placeholder="Enter your password"
+                                    value={formData.password}
+                                    onChange={handleChange}
+                                    required
+                                />
+
+                            </div>
+
+                        </div>
+
+                        {/* Submit */}
+
+                        <button
+                            type="submit"
+                            className="login-submit-btn"
+                            disabled={loading}
+                        >
+
+                            <span>
+                                {loading
+                                    ? "Signing In..."
+                                    : "Sign In"}
+                            </span>
+
+                            {!loading && <FaArrowRight />}
+
+                        </button>
+
+                    </form>
+
+                    <div className="login-divider">
+                        <span></span>
+                        <p>NEW TO BIZGUIDE AI?</p>
+                        <span></span>
+                    </div>
+
+                    <p className="bottom-text">
+
+                        Don't have an account?
+
+                        <Link to="/register">
+                            Create Account
+                        </Link>
+
+                    </p>
+
+                    <div className="login-security">
+
+                        <FaShieldAlt />
+
+                        <span>
+                            Secure authentication powered by BizGuide AI
+                        </span>
+
+                    </div>
+
+                </div>
 
             </div>
 
         </div>
-
     );
-
 }
 
 export default Login;
