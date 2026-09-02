@@ -29,91 +29,137 @@ function RiskAssessment({ report }) {
     return "medium";
   };
 
+  const riskItems = [
+    {
+      icon: <FaMoneyBillWave />,
+      title: "Financial Risk",
+      value: financialRisk,
+      className: "financial",
+    },
+    {
+      icon: <FaChartLine />,
+      title: "Market Risk",
+      value: marketRisk,
+      className: "market",
+    },
+    {
+      icon: <FaCogs />,
+      title: "Operational Risk",
+      value: operationalRisk,
+      className: "operational",
+    },
+    {
+      icon: <FaBalanceScale />,
+      title: "Legal Risk",
+      value: legalRisk,
+      className: "legal",
+    },
+  ];
+
   return (
     <section className="risk-section">
 
+      {/* Header */}
       <div className="risk-header">
-        <h2>Risk Assessment</h2>
-        <p>
-          AI evaluation of the key risks associated with your business.
-        </p>
+
+        <div className="risk-title">
+
+          <div className="risk-title-icon">
+            <FaShieldAlt />
+          </div>
+
+          <div>
+            <span>RISK INTELLIGENCE</span>
+
+            <h2>Risk Assessment</h2>
+
+            <p>
+              AI-powered evaluation of the key risks that may affect
+              your business and its long-term stability.
+            </p>
+          </div>
+
+        </div>
+
       </div>
 
       {/* Overall Risk */}
-
       <div className={`overall-risk ${getRiskClass(riskLevel)}`}>
 
-        <div className="overall-left">
+        <div className="overall-risk-icon">
           <FaShieldAlt />
-          <div>
-            <h3>Overall Risk Level</h3>
-            <p>{riskLevel}</p>
-          </div>
+        </div>
+
+        <div className="overall-risk-content">
+
+          <span>OVERALL RISK LEVEL</span>
+
+          <h3>{riskLevel || "Medium"}</h3>
+
+          <p>
+            Based on the combined financial, market, operational,
+            and legal risk factors.
+          </p>
+
+        </div>
+
+        <div className="risk-status">
+          <span>AI ASSESSMENT</span>
+          <strong>{riskLevel || "Medium"}</strong>
         </div>
 
       </div>
 
       {/* Risk Cards */}
-
       <div className="risk-grid">
 
-        <div className="risk-card">
+        {riskItems.map((item, index) => (
+          <div
+            className={`risk-card ${item.className}`}
+            key={index}
+          >
 
-          <div className="risk-icon blue">
-            <FaMoneyBillWave />
+            <div className="risk-card-top">
+
+              <div className="risk-icon">
+                {item.icon}
+              </div>
+
+              <span>
+                RISK FACTOR
+              </span>
+
+            </div>
+
+            <h3>{item.title}</h3>
+
+            <p>
+              {item.value || "No information available."}
+            </p>
+
           </div>
-
-          <h3>Financial Risk</h3>
-
-          <p>{financialRisk}</p>
-
-        </div>
-
-        <div className="risk-card">
-
-          <div className="risk-icon orange">
-            <FaChartLine />
-          </div>
-
-          <h3>Market Risk</h3>
-
-          <p>{marketRisk}</p>
-
-        </div>
-
-        <div className="risk-card">
-
-          <div className="risk-icon green">
-            <FaCogs />
-          </div>
-
-          <h3>Operational Risk</h3>
-
-          <p>{operationalRisk}</p>
-
-        </div>
-
-        <div className="risk-card">
-
-          <div className="risk-icon purple">
-            <FaBalanceScale />
-          </div>
-
-          <h3>Legal Risk</h3>
-
-          <p>{legalRisk}</p>
-
-        </div>
+        ))}
 
       </div>
 
       {/* AI Summary */}
-
       <div className="risk-summary">
 
-        <h3>AI Risk Summary</h3>
+        <div className="summary-icon">
+          <FaShieldAlt />
+        </div>
 
-        <p>{summary}</p>
+        <div className="summary-content">
+
+          <span>AI INSIGHT</span>
+
+          <h3>Risk Summary</h3>
+
+          <p>
+            {summary || "No risk summary available."}
+          </p>
+
+        </div>
 
       </div>
 
