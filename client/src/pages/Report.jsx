@@ -31,60 +31,103 @@ function Report() {
 
     try {
       const canvas = await html2canvas(input, {
-        scale: 1.3,
+        scale: 1.2,
         useCORS: true,
         backgroundColor: "#ffffff",
         scrollY: -window.scrollY,
         logging: false,
       });
 
-      // JPEG compression significantly reduces PDF size
-      const imgData = canvas.toDataURL("image/jpeg", 0.72);
-
-      const pdf = new jsPDF("p", "mm", "a4");
+      const pdf = new jsPDF({
+        orientation: "portrait",
+        unit: "mm",
+        format: "a4",
+        compress: true,
+      });
 
       const pageWidth = 210;
       const pageHeight = 297;
 
-      const imgWidth = pageWidth;
-      const imgHeight =
-        (canvas.height * imgWidth) / canvas.width;
+      const canvasWidth = canvas.width;
 
-      let heightLeft = imgHeight;
-      let position = 0;
-
-      // First page
-      pdf.addImage(
-        imgData,
-        "JPEG",
-        0,
-        position,
-        imgWidth,
-        imgHeight,
-        undefined,
-        "FAST"
+      // Calculate the pixel height that matches one A4 page
+      const pagePixelHeight = Math.floor(
+        canvasWidth * (pageHeight / pageWidth)
       );
 
-      heightLeft -= pageHeight;
+      let currentY = 0;
+      let pageNumber = 0;
 
-      // Remaining pages
-      while (heightLeft > 0) {
-        position = heightLeft - imgHeight;
+      while (currentY < canvas.height) {
+        const remainingHeight = canvas.height - currentY;
 
-        pdf.addPage();
+        const sliceHeight = Math.min(
+          pagePixelHeight,
+          remainingHeight
+        );
+
+        // Create a separate canvas for the current page
+        const pageCanvas = document.createElement("canvas");
+
+        pageCanvas.width = canvasWidth;
+        pageCanvas.height = sliceHeight;
+
+        const pageContext = pageCanvas.getContext("2d");
+
+        if (!pageContext) {
+          throw new Error("Unable to create PDF page canvas.");
+        }
+
+        // White background
+        pageContext.fillStyle = "#ffffff";
+
+        pageContext.fillRect(
+          0,
+          0,
+          pageCanvas.width,
+          pageCanvas.height
+        );
+
+        // Copy only the current section of the report
+        pageContext.drawImage(
+          canvas,
+          0,
+          currentY,
+          canvasWidth,
+          sliceHeight,
+          0,
+          0,
+          canvasWidth,
+          sliceHeight
+        );
+
+        // Compress each page separately
+        const pageImage = pageCanvas.toDataURL(
+          "image/jpeg",
+          0.65
+        );
+
+        // Add a new PDF page after the first page
+        if (pageNumber > 0) {
+          pdf.addPage();
+        }
+
+        const pageImageHeight =
+          (sliceHeight / canvasWidth) * pageWidth;
 
         pdf.addImage(
-          imgData,
+          pageImage,
           "JPEG",
           0,
-          position,
-          imgWidth,
-          imgHeight,
+          0,
+          pageWidth,
+          pageImageHeight,
           undefined,
           "FAST"
         );
 
-        heightLeft -= pageHeight;
+        currentY += sliceHeight;
+        pageNumber++;
       }
 
       pdf.save(
@@ -92,7 +135,10 @@ function Report() {
       );
     } catch (error) {
       console.error("PDF generation failed:", error);
-      alert("Unable to generate PDF. Please try again.");
+
+      alert(
+        "Unable to generate PDF. Please try again."
+      );
     }
   };
 
@@ -107,14 +153,20 @@ function Report() {
 
         <div className="report-toolbar-info">
           <span>BUSINESS INTELLIGENCE</span>
-          <strong>AI Analysis Report</strong>
+
+          <strong>
+            AI Analysis Report
+          </strong>
         </div>
 
         <button
           className="download-btn"
           onClick={downloadPDF}
         >
-          <span className="download-icon">↓</span>
+          <span className="download-icon">
+            ↓
+          </span>
+
           Download PDF Report
         </button>
 
@@ -127,30 +179,58 @@ function Report() {
       <main id="report-content">
 
         <div className="report-document-header">
-          <span>BIZGUIDE AI</span>
+
+          <span>
+            BIZGUIDE AI
+          </span>
+
           <div className="document-line" />
-          <small>BUSINESS ANALYSIS REPORT</small>
+
+          <small>
+            BUSINESS ANALYSIS REPORT
+          </small>
+
         </div>
 
-        <ReportHeader business={business} />
+        <ReportHeader
+          business={business}
+        />
 
-        <BusinessSection business={business} />
+        <BusinessSection
+          business={business}
+        />
 
-        <ExecutiveSummary report={report} />
+        <ExecutiveSummary
+          report={report}
+        />
 
-        <BusinessDashboard report={report} />
+        <BusinessDashboard
+          report={report}
+        />
 
-        <MarketAnalysis report={report} />
+        <MarketAnalysis
+          report={report}
+        />
 
-        <FinancialAnalysis report={report} />
+        <FinancialAnalysis
+          report={report}
+        />
 
-        <SWOTAnalysis report={report} />
+        <SWOTAnalysis
+          report={report}
+        />
 
-        <RiskAssessment report={report} />
+        <RiskAssessment
+          report={report}
+        />
 
-        <Recommendations report={report} />
+        <Recommendations
+          report={report}
+        />
 
-        <FinalVerdict report={report} />
+        <FinalVerdict
+          report={report}
+        />
 
         <div className="report-end">
 
@@ -158,10 +238,13 @@ function Report() {
             ✦
           </div>
 
-          <h3>End of Business Analysis</h3>
+          <h3>
+            End of Business Analysis
+          </h3>
 
           <p>
-            Generated by BizGuide AI using AI-powered business intelligence.
+            Generated by BizGuide AI using
+            AI-powered business intelligence.
           </p>
 
         </div>
