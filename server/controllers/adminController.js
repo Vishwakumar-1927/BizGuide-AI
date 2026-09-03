@@ -1,124 +1,125 @@
 const User = require("../models/User");
-const BusinessReport = require("../models/BusinessReport");
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
-// =====================================
-// Admin Dashboard
-// =====================================
-
-const getDashboardStats = async (req, res) => {
+// =============================
+// Register
+// =============================
+const register = async (req, res) => {
     try {
+        const { name, email, password } = req.body;
 
-        // Count all users
-        const totalUsers = await User.countDocuments();
-
-        // Count all business reports
-        const totalReports = await BusinessReport.countDocuments();
-
-        res.status(200).json({
-            success: true,
-
-            stats: {
-                totalUsers,
-                totalReports,
-                totalAnalyses: totalReports
-            }
-        });
-
-    } catch (error) {
-
-        console.error(
-            "Admin Dashboard Error:",
-            error
-        );
-
-        res.status(500).json({
-            success: false,
-            message: "Failed to load admin dashboard."
-        });
-    }
-};
-
-
-// =====================================
-// Get All Users
-// =====================================
-
-const getAllUsers = async (req, res) => {
-    try {
-
-        const users = await User.find()
-            .select("-password")
-            .sort({ createdAt: -1 });
-
-        res.status(200).json({
-            success: true,
-            count: users.length,
-            users
-        });
-
-    } catch (error) {
-
-        console.error(
-            "Get Users Error:",
-            error
-        );
-
-        res.status(500).json({
-            success: false,
-            message: "Failed to fetch users."
-        });
-    }
-};
-
-
-// =====================================
-// Update User Role
-// =====================================
-
-const updateUserRole = async (req, res) => {
-    try {
-
-        const { userId } = req.params;
-        const { role } = req.body;
-
-        // Validate role
-        if (!["user", "admin"].includes(role)) {
+        if (!name || !email || !password) {
             return res.status(400).json({
                 success: false,
-                message: "Invalid role."
+                message: "All fields are required."
             });
         }
 
-        const user = await User.findById(userId);
+        const normalizedEmail = email.trim().toLowerCase();
+        const normalizedName = name.trim();
+
+        // Check if email already exists
+        const existingUser = await User.findOne({
+            email: normalizedEmail
+        });
+
+        if (existingUser) {
+            return res.status(400).json({
+                success: false,
+                message: "Email already exists."
+            });
+        }
+
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        try {
+            await User.create({
+                name: normalizedName,
+                email: normalizedEmail,
+                password: hashedPassword
+            });
+        } catch (error) {
+            // Handles duplicate email race conditions
+            if (error.code === 11000) {
+                return res.status(400).json({
+                    success: false,
+                    message: "Email already exists."
+                });
+            }
+
+            throw error;
+        }
+
+        res.status(201).json({
+            success: true,
+            message: "Registration successful."
+        });
+
+    } catch (error) {
+        console.error(error);
+
+        res.status(500).json({
+            success: false,
+            message: "Registration failed."
+        });
+    }
+};
+
+// =============================
+// Login
+// =============================
+const login = async (req, res) => {
+    try {
+        const { email, password } = req.body;
+
+        if (!email || !password) {
+            return res.status(400).json({
+                success: false,
+                message: "Email and password are required."
+            });
+        }
+
+        const normalizedEmail = email.trim().toLowerCase();
+
+        const user = await User.findOne({
+            email: normalizedEmail
+        });
 
         if (!user) {
-            return res.status(404).json({
-                success: false,
-                message: "User not found."
-            });
-        }
-
-        // Prevent admin from changing their own role
-        if (
-            user._id.toString() ===
-            req.user._id.toString()
-        ) {
             return res.status(400).json({
                 success: false,
-                message:
-                    "You cannot change your own role."
+                message: "Invalid email or password."
             });
         }
 
-        user.role = role;
+        const isMatch = await bcrypt.compare(
+            password,
+            user.password
+        );
 
-        await user.save();
+        if (!isMatch) {
+            return res.status(400).json({
+                success: false,
+                message: "Invalid email or password."
+            });
+        }
+
+        const token = jwt.sign(
+            {
+                id: user._id,
+                role: user.role
+            },
+            process.env.JWT_SECRET,
+            {
+                expiresIn: "7d"
+            }
+        );
 
         res.status(200).json({
             success: true,
-            message:
-                `User role changed to ${role}.`,
-
+            message: "Login successful.",
+            token,
             user: {
                 id: user._id,
                 name: user.name,
@@ -129,31 +130,22 @@ const updateUserRole = async (req, res) => {
         });
 
     } catch (error) {
-
-        console.error(
-            "Update Role Error:",
-            error
-        );
+        console.error(error);
 
         res.status(500).json({
             success: false,
-            message:
-                "Failed to update user role."
+            message: "Login failed."
         });
     }
 };
 
-
-// =====================================
-// Delete User
-// =====================================
-
-const deleteUser = async (req, res) => {
+// =============================
+// Get Profile
+// =============================
+const getProfile = async (req, res) => {
     try {
-
-        const { userId } = req.params;
-
-        const user = await User.findById(userId);
+        const user = await User.findById(req.user._id)
+            .select("-password");
 
         if (!user) {
             return res.status(404).json({
@@ -162,168 +154,183 @@ const deleteUser = async (req, res) => {
             });
         }
 
-        // Prevent admin from deleting themselves
-        if (
-            user._id.toString() ===
-            req.user._id.toString()
-        ) {
+        res.status(200).json({
+            success: true,
+            user
+        });
+
+    } catch (error) {
+        console.error(error);
+
+        res.status(500).json({
+            success: false,
+            message: "Failed to load profile."
+        });
+    }
+};
+
+// =============================
+// Update Profile
+// =============================
+const updateProfile = async (req, res) => {
+    try {
+        const { name, email } = req.body;
+
+        const user = await User.findById(req.user._id);
+
+        if (!user) {
+            return res.status(404).json({
+                success: false,
+                message: "User not found."
+            });
+        }
+
+        if (name !== undefined) {
+            const normalizedName = name.trim();
+
+            if (!normalizedName) {
+                return res.status(400).json({
+                    success: false,
+                    message: "Name cannot be empty."
+                });
+            }
+
+            user.name = normalizedName;
+        }
+
+        if (email !== undefined) {
+            const normalizedEmail = email.trim().toLowerCase();
+
+            if (!normalizedEmail) {
+                return res.status(400).json({
+                    success: false,
+                    message: "Email cannot be empty."
+                });
+            }
+
+            // Check only when the email is actually changing
+            if (normalizedEmail !== user.email) {
+                const existingUser = await User.findOne({
+                    email: normalizedEmail,
+                    _id: { $ne: user._id }
+                });
+
+                if (existingUser) {
+                    return res.status(400).json({
+                        success: false,
+                        message: "Email already exists."
+                    });
+                }
+
+                user.email = normalizedEmail;
+            }
+        }
+
+        try {
+            await user.save();
+        } catch (error) {
+            // Handles duplicate email race conditions
+            if (error.code === 11000) {
+                return res.status(400).json({
+                    success: false,
+                    message: "Email already exists."
+                });
+            }
+
+            throw error;
+        }
+
+        res.status(200).json({
+            success: true,
+            message: "Profile updated successfully.",
+            user: {
+                id: user._id,
+                name: user.name,
+                email: user.email,
+                role: user.role,
+                createdAt: user.createdAt
+            }
+        });
+
+    } catch (error) {
+        console.error(error);
+
+        res.status(500).json({
+            success: false,
+            message: "Failed to update profile."
+        });
+    }
+};
+
+// =============================
+// Change Password
+// =============================
+const changePassword = async (req, res) => {
+    try {
+        const {
+            currentPassword,
+            newPassword
+        } = req.body;
+
+        if (!currentPassword || !newPassword) {
             return res.status(400).json({
                 success: false,
-                message:
-                    "You cannot delete your own account."
+                message: "Current password and new password are required."
             });
         }
 
-        await User.findByIdAndDelete(userId);
+        const user = await User.findById(req.user._id);
 
-        res.status(200).json({
-            success: true,
-            message:
-                "User deleted successfully."
-        });
-
-    } catch (error) {
-
-        console.error(
-            "Delete User Error:",
-            error
-        );
-
-        res.status(500).json({
-            success: false,
-            message:
-                "Failed to delete user."
-        });
-    }
-};
-
-
-// =====================================
-// Get All Business Reports
-// =====================================
-
-// =====================================
-// Get All Business Reports
-// =====================================
-
-const getAllReports = async (req, res) => {
-    try {
-
-        const reports = await BusinessReport.find()
-            .populate("user", "name email")
-            .sort({ createdAt: -1 });
-
-        res.status(200).json({
-            success: true,
-            count: reports.length,
-            reports
-        });
-
-    } catch (error) {
-
-        console.error(
-            "Get Reports Error:",
-            error
-        );
-
-        res.status(500).json({
-            success: false,
-            message: "Failed to fetch reports."
-        });
-    }
-};
-
-// =====================================
-// Get Single Business Report
-// =====================================
-
-const getReportById = async (req, res) => {
-    try {
-
-        const { reportId } = req.params;
-
-        const report = await BusinessReport.findById(reportId)
-            .populate("user", "name email");
-
-        if (!report) {
+        if (!user) {
             return res.status(404).json({
                 success: false,
-                message: "Report not found."
+                message: "User not found."
             });
         }
 
-        res.status(200).json({
-            success: true,
-            report
-        });
-
-    } catch (error) {
-
-        console.error(
-            "Get Report Error:",
-            error
+        const isMatch = await bcrypt.compare(
+            currentPassword,
+            user.password
         );
 
-        res.status(500).json({
-            success: false,
-            message: "Failed to fetch report."
-        });
-    }
-};
-
-// =====================================
-// Delete Business Report
-// =====================================
-
-// =====================================
-// Delete Business Report
-// =====================================
-
-const deleteReport = async (req, res) => {
-    try {
-        const { reportId } = req.params;
-
-        const report = await BusinessReport.findById(reportId);
-
-        if (!report) {
-            return res.status(404).json({
+        if (!isMatch) {
+            return res.status(400).json({
                 success: false,
-                message: "Report not found."
+                message: "Current password is incorrect."
             });
         }
 
-        await BusinessReport.findByIdAndDelete(reportId);
+        const hashedPassword = await bcrypt.hash(
+            newPassword,
+            10
+        );
+
+        user.password = hashedPassword;
+
+        await user.save();
 
         res.status(200).json({
             success: true,
-            message: "Report deleted successfully."
+            message: "Password changed successfully."
         });
 
     } catch (error) {
-
-        console.error(
-            "Delete Report Error:",
-            error
-        );
+        console.error(error);
 
         res.status(500).json({
             success: false,
-            message: "Failed to delete report."
+            message: "Failed to change password."
         });
     }
 };
 
-
-// =====================================
+// =============================
 // Exports
-// =====================================
-
+// =============================
 module.exports = {
-    getDashboardStats,
-    getAllUsers,
-    updateUserRole,
-    deleteUser,
-    getAllReports,
-    getReportById,
-    deleteReport
+    register,
+    login,
+    getProfile,
+    updateProfile,
+    changePassword
 };
