@@ -29,56 +29,71 @@ function Report() {
 
     if (!input) return;
 
-    const canvas = await html2canvas(input, {
-      scale: 2,
-      useCORS: true,
-      scrollY: -window.scrollY,
-    });
+    try {
+      const canvas = await html2canvas(input, {
+        scale: 1.3,
+        useCORS: true,
+        backgroundColor: "#ffffff",
+        scrollY: -window.scrollY,
+        logging: false,
+      });
 
-    const imgData = canvas.toDataURL("image/png");
+      // JPEG compression significantly reduces PDF size
+      const imgData = canvas.toDataURL("image/jpeg", 0.72);
 
-    const pdf = new jsPDF("p", "mm", "a4");
+      const pdf = new jsPDF("p", "mm", "a4");
 
-    const pageWidth = 210;
-    const pageHeight = 297;
+      const pageWidth = 210;
+      const pageHeight = 297;
 
-    const imgWidth = pageWidth;
-    const imgHeight = (canvas.height * imgWidth) / canvas.width;
+      const imgWidth = pageWidth;
+      const imgHeight =
+        (canvas.height * imgWidth) / canvas.width;
 
-    let heightLeft = imgHeight;
-    let position = 0;
+      let heightLeft = imgHeight;
+      let position = 0;
 
-    pdf.addImage(
-      imgData,
-      "PNG",
-      0,
-      position,
-      imgWidth,
-      imgHeight
-    );
-
-    heightLeft -= pageHeight;
-
-    while (heightLeft > 0) {
-      position = heightLeft - imgHeight;
-
-      pdf.addPage();
-
+      // First page
       pdf.addImage(
         imgData,
-        "PNG",
+        "JPEG",
         0,
         position,
         imgWidth,
-        imgHeight
+        imgHeight,
+        undefined,
+        "FAST"
       );
 
       heightLeft -= pageHeight;
-    }
 
-    pdf.save(
-      `${business.businessName || "BizGuide"}_Business_Report.pdf`
-    );
+      // Remaining pages
+      while (heightLeft > 0) {
+        position = heightLeft - imgHeight;
+
+        pdf.addPage();
+
+        pdf.addImage(
+          imgData,
+          "JPEG",
+          0,
+          position,
+          imgWidth,
+          imgHeight,
+          undefined,
+          "FAST"
+        );
+
+        heightLeft -= pageHeight;
+      }
+
+      pdf.save(
+        `${business.businessName || "BizGuide"}_Business_Report.pdf`
+      );
+    } catch (error) {
+      console.error("PDF generation failed:", error);
+      alert("Unable to generate PDF. Please try again.");
+    }
   };
 
   return (
